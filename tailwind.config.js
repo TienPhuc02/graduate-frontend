@@ -6,7 +6,8 @@ export default {
     extend: {
       fontFamily: {
         poppins: ['Poppins', 'sans-serif'],
-        inter: ['Inter', 'sans-serif']
+        inter: ['Inter', 'sans-serif'],
+        manRope: ['Manrope', 'sans-serif']
       },
       borderRadius: {
         lg: 'var(--radius)',

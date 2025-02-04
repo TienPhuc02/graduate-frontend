@@ -41,7 +41,7 @@ const FormSignUp = () => {
                   name='firstName'
                   render={({ field }) => (
                     <FormItem>
-                      <Label htmlFor='firstName'>firstName</Label>
+                      <Label htmlFor='firstName'>First Name</Label>
                       <FormControl>
                         <Input id='firstName' placeholder='firstName' {...field} />
                       </FormControl>
@@ -56,7 +56,7 @@ const FormSignUp = () => {
                   name='lastName'
                   render={({ field }) => (
                     <FormItem>
-                      <Label htmlFor='lastName'>lastName</Label>
+                      <Label htmlFor='lastName'>Last Name</Label>
                       <FormControl>
                         <Input id='lastName' placeholder='lastName' {...field} />
                       </FormControl>

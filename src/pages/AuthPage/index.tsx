@@ -1,17 +1,14 @@
 import LogoIcon from '@/components/common/LogoIcon'
-import { ModeToggle } from '@/components/common/ModeToggle'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import FormSignIn from '@/components/features/Auth/FormSignIn'
 import FormSignUp from '@/components/features/Auth/FormSignUp'
+import HeaderAuthPage from '@/components/layout/HeaderAuthPage'
 
 const AuthenticationPage = () => {
   return (
     <>
-      <div className='h-[40px] border-b flex justify-between px-[20px]'>
-        <LogoIcon />
-        <ModeToggle />
-      </div>
+      <HeaderAuthPage />
       <div className='bg-[#F4F4F5] min-h-[calc(100vh-40px)] pt-[10px] dark:bg-[#27272A]'>
         <Card className='max-w-[500px] mx-auto'>
           <CardHeader>

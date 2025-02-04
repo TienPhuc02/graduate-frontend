@@ -3,9 +3,11 @@ import { CardContent, CardFooter } from '@/components/ui/card'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Divider } from 'antd'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { GithubOutlined, GoogleOutlined } from '@ant-design/icons'
 const FormSignIn = () => {
   const signInSchema = z.object({
     username: z.string().min(2).max(50),
@@ -21,6 +23,12 @@ const FormSignIn = () => {
   function onSubmit(values: z.infer<typeof signInSchema>) {
     console.log(values)
     form.reset()
+  }
+  const handleGoogleSignIn = () => {
+    window.location.href = 'http://localhost:8000/auth/google'
+  }
+  const handleGithubSignIn = () => {
+    window.location.href = 'http://localhost:8000/auth/github'
   }
   return (
     <>
@@ -58,7 +66,9 @@ const FormSignIn = () => {
               />
             </div>
           </CardContent>
-          <div className='flex justify-end underline pr-6 text-[14px] text-[#71717a] mb-[10px]'>Forgot password?</div>
+          <div className='flex justify-end underline pr-6 text-[14px] text-[#71717a] mb-[10px] cursor-pointer'>
+            Forgot password?
+          </div>
           <CardFooter>
             <Button type='submit' className='w-full'>
               Sign In
@@ -66,6 +76,19 @@ const FormSignIn = () => {
           </CardFooter>
         </form>
       </Form>
+      <Divider plain className='!my-0'>
+        Or
+      </Divider>
+      <div className='flex flex-col gap-4 items-center justify-center w-full'>
+        <Button variant='outline' className='w-full' onClick={handleGoogleSignIn}>
+          <GoogleOutlined />
+          <p className='font-normal'>Sign in with Google</p>
+        </Button>
+        <Button variant='outline' className='w-full' onClick={handleGithubSignIn}>
+          <GithubOutlined />
+          <p className='font-normal'>Sign in with Github</p>
+        </Button>
+      </div>
     </>
   )
 }
