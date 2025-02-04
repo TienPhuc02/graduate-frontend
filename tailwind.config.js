@@ -5,23 +5,14 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        poppins: ['Poppins', 'sans-serif']
+        poppins: ['Poppins', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
+        manRope: ['Manrope', 'sans-serif']
       },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)'
-      },
-      fontWeight: {
-        thin: '100',
-        extralight: '200',
-        light: '300',
-        regular: '400',
-        medium: '500',
-        semibold: '600',
-        bold: '700',
-        extrabold: '800',
-        black: '900'
       },
       colors: {
         background: 'hsl(var(--background))',
