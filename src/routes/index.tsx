@@ -1,10 +1,10 @@
-import App from '@/App'
 import AuthenticationPage from '@/pages/AuthPage'
+import HomePage from '@/pages/HomePage'
 import { createBrowserRouter } from 'react-router-dom'
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />
+    element: <HomePage />
   },
   {
     path: 'authentication',

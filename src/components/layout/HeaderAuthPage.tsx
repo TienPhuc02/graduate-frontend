@@ -1,4 +1,4 @@
-import LogoIcon from '../common/LogoIcon'
+import LogoIcon from '../common/icons/LogoIcon'
 import { ModeToggle } from '../common/ModeToggle'
 
 const HeaderAuthPage = () => {

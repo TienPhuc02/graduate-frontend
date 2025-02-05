@@ -1,8 +1,8 @@
-import LogoIcon from '@/components/common/LogoIcon'
+import LogoIcon from '@/components/common/icons/LogoIcon'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import FormSignIn from '@/components/features/Auth/FormSignIn'
-import FormSignUp from '@/components/features/Auth/FormSignUp'
+import FormSignIn from '@/components/feature/authentication/FormSignIn'
+import FormSignUp from '@/components/feature/authentication/FormSignUp'
 import HeaderAuthPage from '@/components/layout/HeaderAuthPage'
 
 const AuthenticationPage = () => {
