@@ -9,7 +9,7 @@ interface Props extends HTMLMotionProps<'div'> {
   type?: AnimationType
   delay?: number
   duration?: number
-  className: string
+  className?: string
 }
 
 const animationVariants = {
@@ -208,17 +208,12 @@ const TextAnimate: FC<Props> = ({ text, type = 'whipInUp', className, ...props }
 
   if (type === 'rollIn' || type === 'whipIn') {
     return (
-      <h2
-        className={cn(
-          'mt-10 text-3xl font-black text-black dark:text-neutral-100 py-5 pb-8 px-8 md:text-5xl',
-          className
-        )}
-      >
+      <h2 className={cn('font-black text-black dark:text-neutral-100 py-5 pb-8 px-8', className)}>
         {text.split(' ').map((word, index) => {
           return (
             <motion.span
               ref={ref}
-              className='inline-block mr-[0.25em] whitespace-nowrap'
+              className='inline-block mr-[0.25em]'
               aria-hidden='true'
               key={index}
               initial='hidden'
@@ -247,12 +242,12 @@ const TextAnimate: FC<Props> = ({ text, type = 'whipInUp', className, ...props }
 
   return (
     <motion.h2
-      style={{ display: 'flex', overflow: 'hidden' }}
+      style={{ display: 'flex' }}
       role='heading'
       variants={container}
       initial='hidden'
       animate='visible'
-      className='mt-10 text-4xl font-black text-black dark:text-neutral-100 py-5 pb-8 px-8 md:text-5xl'
+      className={cn('font-black text-black dark:text-neutral-100', className)}
       {...props}
     >
       {letters.map((letter, index) => (
