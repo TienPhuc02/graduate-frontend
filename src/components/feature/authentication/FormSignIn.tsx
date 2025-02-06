@@ -7,29 +7,44 @@ import { Divider } from 'antd'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { GithubOutlined, GoogleOutlined } from '@ant-design/icons'
+import { GithubOutlined } from '@ant-design/icons'
+import { Eye, EyeOff } from 'lucide-react'
+import GoogleIcon from '@/components/common/icons/GoogleIcon'
+import { useState } from 'react'
+
 const FormSignIn = () => {
+  const [showPassword, setShowPassword] = useState(false)
+
   const signInSchema = z.object({
-    username: z.string().min(2).max(50),
+    email: z.string().min(2).max(50),
     password: z.string().min(2).max(50)
   })
+
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
-      username: '',
+      email: '',
       password: ''
     }
   })
+
   function onSubmit(values: z.infer<typeof signInSchema>) {
     console.log(values)
     form.reset()
   }
+
   const handleGoogleSignIn = () => {
     window.location.href = 'http://localhost:8000/auth/google'
   }
+
   const handleGithubSignIn = () => {
     window.location.href = 'http://localhost:8000/auth/github'
   }
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword)
+  }
+
   return (
     <>
       <Form {...form}>
@@ -38,12 +53,12 @@ const FormSignIn = () => {
             <div className='space-y-1'>
               <FormField
                 control={form.control}
-                name='username'
+                name='email'
                 render={({ field }) => (
                   <FormItem>
-                    <Label htmlFor='username'>Username</Label>
+                    <Label htmlFor='email'>Địa chỉ Email</Label>
                     <FormControl>
-                      <Input id='username' placeholder='@peduarte' {...field} />
+                      <Input id='email' placeholder='@peduarte' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -56,9 +71,27 @@ const FormSignIn = () => {
                 name='password'
                 render={({ field }) => (
                   <FormItem>
-                    <Label htmlFor='password'>Password</Label>
+                    <Label htmlFor='password'>Mật khẩu</Label>
                     <FormControl>
-                      <Input id='password' placeholder='@peduarte' {...field} />
+                      <div className='relative'>
+                        <Input
+                          id='password'
+                          type={showPassword ? 'text' : 'password'}
+                          placeholder='Nhập mật khẩu'
+                          {...field}
+                        />
+                        <button
+                          type='button'
+                          onClick={togglePasswordVisibility}
+                          className='absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5'
+                        >
+                          {showPassword ? (
+                            <EyeOff className='h-4 w-4 text-gray-500' />
+                          ) : (
+                            <Eye className='h-4 w-4 text-gray-500' />
+                          )}
+                        </button>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -67,11 +100,11 @@ const FormSignIn = () => {
             </div>
           </CardContent>
           <div className='flex justify-end underline pr-6 text-[14px] text-[#71717a] mb-[10px] cursor-pointer'>
-            Forgot password?
+            Quên mật khẩu?
           </div>
-          <CardFooter>
+          <CardFooter className='!p-3'>
             <Button type='submit' className='w-full'>
-              Sign In
+              Đăng Nhập
             </Button>
           </CardFooter>
         </form>
@@ -81,12 +114,12 @@ const FormSignIn = () => {
       </Divider>
       <div className='flex flex-col gap-4 items-center justify-center w-full'>
         <Button variant='outline' className='w-full' onClick={handleGoogleSignIn}>
-          <GoogleOutlined />
-          <p className='font-normal'>Sign in with Google</p>
+          <GoogleIcon />
+          <p className='font-normal'>Đăng nhập với Google</p>
         </Button>
         <Button variant='outline' className='w-full' onClick={handleGithubSignIn}>
           <GithubOutlined />
-          <p className='font-normal'>Sign in with Github</p>
+          <p className='font-normal'>Đăng nhập với Github</p>
         </Button>
       </div>
     </>

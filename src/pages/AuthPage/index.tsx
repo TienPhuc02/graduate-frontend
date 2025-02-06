@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import FormSignIn from '@/components/feature/authentication/FormSignIn'
 import FormSignUp from '@/components/feature/authentication/FormSignUp'
 import HeaderAuthPage from '@/components/layout/HeaderAuthPage'
+import { Link } from 'react-router-dom'
 
 const AuthenticationPage = () => {
   return (
@@ -12,21 +13,23 @@ const AuthenticationPage = () => {
       <div className='bg-[#F4F4F5] min-h-[calc(100vh-40px)] pt-[10px] dark:bg-[#27272A]'>
         <Card className='max-w-[500px] mx-auto'>
           <CardHeader>
-            <LogoIcon />
-            <CardTitle className='text-[30px]'>Getting Started</CardTitle>
+            <Link to='/'>
+              <LogoIcon className='w-6 h-6 cursor-pointer' />
+            </Link>
+            <CardTitle className='text-[30px]'>Bắt đầu</CardTitle>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue='sign-in' className='max-w-[400px] mx-auto'>
               <TabsList className='grid w-full grid-cols-2 '>
-                <TabsTrigger value='sign-in'>Sign In</TabsTrigger>
-                <TabsTrigger value='sign-up'>Create account</TabsTrigger>
+                <TabsTrigger value='sign-in'>Đăng Nhập</TabsTrigger>
+                <TabsTrigger value='sign-up'>Tạo Tài Khoản</TabsTrigger>
               </TabsList>
               <TabsContent value='sign-in'>
                 <Card>
-                  <CardHeader>
+                  <CardHeader className='p-3'>
                     <CardDescription>
-                      Access your account quickly and securely. Sign in to continue where you left off and explore all
-                      your features.
+                      Truy cập tài khoản của bạn nhanh chóng và an toàn. Đăng nhập để tiếp tục từ nơi bạn đã dừng lại và
+                      khám phá tất cả các tính năng.
                     </CardDescription>
                   </CardHeader>
                   <FormSignIn />
@@ -34,10 +37,10 @@ const AuthenticationPage = () => {
               </TabsContent>
               <TabsContent value='sign-up'>
                 <Card>
-                  <CardHeader>
+                  <CardHeader className='p-3'>
                     <CardDescription>
-                      Welcome back! Please log in to access your account and enjoy seamless, secure access to all your
-                      features.
+                      Chào mừng bạn quay lại! Vui lòng đăng nhập để truy cập tài khoản của bạn và tận hưởng trải nghiệm
+                      liền mạch, an toàn với tất cả các tính năng.
                     </CardDescription>
                   </CardHeader>
                   <FormSignUp />
