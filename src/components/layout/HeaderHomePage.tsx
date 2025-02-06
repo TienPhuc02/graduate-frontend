@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import LogoIcon from '../common/icons/LogoIcon'
 import { Button } from '../ui/button'
+import { ModeToggle } from '../common/ModeToggle'
 
 const navLinks = [
   { name: 'Home', path: '#' },
@@ -31,6 +32,7 @@ const HeaderHomePage = () => {
             <Button variant='outline' className='justify-self-end'>
               Sign in
             </Button>
+            <ModeToggle />
           </div>
         </nav>
       </div>

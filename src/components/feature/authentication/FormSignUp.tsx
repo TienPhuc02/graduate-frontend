@@ -4,9 +4,13 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from '@/component
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Eye, EyeOff } from 'lucide-react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+
 const FormSignUp = () => {
+  const [showPassword, setShowPassword] = useState(false)
   const signInSchema = z.object({
     firstName: z.string().optional(),
     lastName: z.string().optional(),
@@ -15,6 +19,7 @@ const FormSignUp = () => {
     address: z.string().optional(),
     phoneNumber: z.number().optional()
   })
+
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
@@ -25,9 +30,13 @@ const FormSignUp = () => {
       address: ''
     }
   })
+
   function onSubmit(values: z.infer<typeof signInSchema>) {
     console.log(values)
     form.reset()
+  }
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword)
   }
   return (
     <>
@@ -41,9 +50,9 @@ const FormSignUp = () => {
                   name='firstName'
                   render={({ field }) => (
                     <FormItem>
-                      <Label htmlFor='firstName'>First Name</Label>
+                      <Label htmlFor='firstName'>Họ</Label>
                       <FormControl>
-                        <Input id='firstName' placeholder='firstName' {...field} />
+                        <Input id='firstName' placeholder='Nhập họ' {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -56,9 +65,9 @@ const FormSignUp = () => {
                   name='lastName'
                   render={({ field }) => (
                     <FormItem>
-                      <Label htmlFor='lastName'>Last Name</Label>
+                      <Label htmlFor='lastName'>Tên</Label>
                       <FormControl>
-                        <Input id='lastName' placeholder='lastName' {...field} />
+                        <Input id='lastName' placeholder='Nhập tên' {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -72,9 +81,9 @@ const FormSignUp = () => {
                 name='email'
                 render={({ field }) => (
                   <FormItem>
-                    <Label htmlFor='email'>Email Address</Label>
+                    <Label htmlFor='email'>Địa Chỉ Email</Label>
                     <FormControl>
-                      <Input id='email' placeholder='email' {...field} />
+                      <Input id='email' placeholder='Nhập email' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -87,9 +96,27 @@ const FormSignUp = () => {
                 name='password'
                 render={({ field }) => (
                   <FormItem>
-                    <Label htmlFor='password'>Password</Label>
+                    <Label htmlFor='password'>Mật Khẩu</Label>
                     <FormControl>
-                      <Input id='password' placeholder='password' {...field} />
+                      <div className='relative'>
+                        <Input
+                          id='password'
+                          type={showPassword ? 'text' : 'password'}
+                          placeholder='Nhập mật khẩu'
+                          {...field}
+                        />
+                        <button
+                          type='button'
+                          onClick={togglePasswordVisibility}
+                          className='absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5'
+                        >
+                          {showPassword ? (
+                            <EyeOff className='h-4 w-4 text-gray-500' />
+                          ) : (
+                            <Eye className='h-4 w-4 text-gray-500' />
+                          )}
+                        </button>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -102,9 +129,9 @@ const FormSignUp = () => {
                 name='address'
                 render={({ field }) => (
                   <FormItem>
-                    <Label htmlFor='address'>Address Location</Label>
+                    <Label htmlFor='address'>Địa Chỉ</Label>
                     <FormControl>
-                      <Input id='address' placeholder='address' {...field} />
+                      <Input id='address' placeholder='Nhập địa chỉ' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -117,9 +144,9 @@ const FormSignUp = () => {
                 name='phoneNumber'
                 render={({ field }) => (
                   <FormItem>
-                    <Label htmlFor='phoneNumber'>Phone Number</Label>
+                    <Label htmlFor='phoneNumber'>Số Điện Thoại</Label>
                     <FormControl>
-                      <Input id='phoneNumber' placeholder='phoneNumber' {...field} />
+                      <Input id='phoneNumber' placeholder='Nhập số điện thoại' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -127,9 +154,9 @@ const FormSignUp = () => {
               />
             </div>
           </CardContent>
-          <CardFooter>
+          <CardFooter className='!p-3'>
             <Button type='submit' className='w-full'>
-              Sign Up
+              Đăng Ký
             </Button>
           </CardFooter>
         </form>
