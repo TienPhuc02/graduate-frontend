@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+import tailwindcss from 'tailwindcss'
 import react from '@vitejs/plugin-react-swc'
 import path from 'path'
 import { TanStackRouterVite } from '@tanstack/router-vite-plugin'
@@ -9,7 +10,10 @@ export default defineConfig({
     port: 3000
   },
   css: {
-    devSourcemap: true
+    postcss: {
+      plugins: [tailwindcss()]
+    },
+    devSourcemap: false
   },
   resolve: {
     alias: {
