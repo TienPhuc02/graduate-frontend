@@ -13,7 +13,7 @@ export default defineConfig({
     postcss: {
       plugins: [tailwindcss()]
     },
-    devSourcemap: false
+    devSourcemap: true
   },
   resolve: {
     alias: {
