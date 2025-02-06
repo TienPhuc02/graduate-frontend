@@ -1,30 +1,30 @@
 export const BENEFITS = [
   {
-    title: 'Free Courses',
+    title: 'Khoá Học Miễn Phí',
     description:
-      'We provide several free courses to support the availability of education for underprivileged communities.'
+      'Chúng tôi cung cấp nhiều khóa học miễn phí nhằm hỗ trợ giáo dục cho các cộng đồng có hoàn cảnh khó khăn.'
   },
   {
-    title: 'Access Forever',
+    title: 'Truy Cập Trọn Đời',
     description:
-      'All courses that you have registered can be accessed forever so that your learning is more comfortable and not rushed.'
+      'Tất cả các khóa học mà bạn đã đăng ký có thể được truy cập trọn đời, giúp bạn học tập thoải mái mà không bị áp lực về thời gian.'
   },
   {
-    title: 'Consulting Group',
+    title: 'Nhóm Tư Vấn',
+    description: 'Có một nhóm tư vấn giúp bạn đặt câu hỏi và thảo luận với các học viên khác về những chủ đề liên quan.'
+  },
+  {
+    title: 'Chứng Chỉ và Danh Mục Dự Án',
+    description: 'Sau khi hoàn thành khóa học, bạn sẽ nhận được chứng chỉ và danh mục các dự án đã hoàn thành.'
+  },
+  {
+    title: 'Lộ Trình Học Tập Bài Bản',
     description:
-      'There is a consultation group which is useful if you want to ask a question and you can also open a new discussion.'
+      'Các khóa học được thiết kế từ cơ bản đến nâng cao, giúp mọi người có thể học tập một cách có hệ thống với dịch vụ của chúng tôi.'
   },
   {
-    title: 'Certificates and Portfolios',
-    description: 'After completing the course you will get a certificate and a portfolio of completed course projects.'
-  },
-  {
-    title: 'More Directed Learning',
+    title: 'Giảng Viên Kinh Nghiệm',
     description:
-      'The course provides courses from basic to expert level so that everyone can learn with the services we provide.'
-  },
-  {
-    title: 'Experienced Instructor',
-    description: 'We have experienced instructors drawn from the industrial world whose experience is beyond doubt.'
+      'Chúng tôi có đội ngũ giảng viên giàu kinh nghiệm, đến từ các ngành công nghiệp với chuyên môn đã được kiểm chứng.'
   }
 ]

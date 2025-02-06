@@ -18,10 +18,10 @@ const HeaderHomePage = () => {
   return (
     <div className='border-b w-full'>
       <div className='container mx-auto h-[60px] flex items-center justify-between'>
-        <div className='flex gap-[10px] items-center justify-center'>
+        <Link to='/' className='flex gap-[10px] items-center justify-center cursor-pointer'>
           <LogoIcon className='h-6 w-6' />
           <span className='font-medium text-2xl'>EduGo</span>
-        </div>
+        </Link>
         <nav>
           <div className='ml-auto flex gap-2'>
             {navLinks.map(({ name, path }) => (
