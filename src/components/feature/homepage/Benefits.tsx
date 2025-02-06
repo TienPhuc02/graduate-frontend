@@ -1,5 +1,6 @@
 import CardAnimate from '@/components/ui/card-animate'
 import { TextAnimate } from '@/components/ui/text-animate'
+import { BENEFITS } from '@/constants'
 import { motion } from 'framer-motion'
 const container = {
   hidden: { opacity: 1, scale: 0 },
@@ -17,9 +18,9 @@ const Benefits = () => {
     <>
       <TextAnimate text='Benefits of Joining EduGo' className='text-center' type='rollIn'></TextAnimate>
       <motion.div className='grid grid-cols-3 gap-[30px]' variants={container} initial='hidden' animate='visible'>
-        {[...Array(6)].map((_, index) => (
-          <CardAnimate key={index} />
-        ))}
+        {BENEFITS.map((_, index) => {
+          return <CardAnimate key={index} title={_.title} description={_.description} />
+        })}
       </motion.div>
     </>
   )
