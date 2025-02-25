@@ -1,7 +1,7 @@
-import Benefits from '@/components/feature/homepage/Benefits'
-import RecommendCourse from '@/components/feature/homepage/RecommendCourse'
+import Benefits from '@/components/pages/homepage/Benefits'
+import RecommendCourse from '@/components/pages/homepage/RecommendCourse'
 import HeaderHomePage from '@/components/layout/HeaderHomePage'
-import Hero from '../../components/feature/homepage/Hero'
+import Hero from '../../components/pages/homepage/Hero'
 
 const HomePage = () => {
   return (

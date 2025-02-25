@@ -16,7 +16,7 @@ const linkClass =
 
 const HeaderHomePage = () => {
   return (
-    <div className='border-b w-full'>
+    <div className='border-b w-full fixed dark:bg-black z-50 bg-white'>
       <div className='container mx-auto h-[60px] flex items-center justify-between'>
         <Link to='/' className='flex gap-[10px] items-center justify-center cursor-pointer'>
           <LogoIcon className='h-6 w-6' />
