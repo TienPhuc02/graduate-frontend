@@ -2,6 +2,16 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import Microsoft from '@/components/common/icons/Microsoft'
 import Marquee from 'react-fast-marquee'
+import AmazonWebServices from '@/components/common/icons/AWSIcon'
+import Appwrite from '@/components/common/icons/AppWriteIcon'
+import Docker from '@/components/common/icons/DockerIcon'
+import GmailIcon from '@/components/common/icons/GmailIcon'
+import GoogleIcon from '@/components/common/icons/GoogleIcon'
+import Linux from '@/components/common/icons/LinuxIcon'
+import IntelliJIDEA from '@/components/common/icons/IntelliJIcon'
+import JetBrains from '@/components/common/icons/JetBrainIcon'
+import Notion from '@/components/common/icons/NotionIcon'
+import MicrosoftAzure from '@/components/common/icons/MicrosoftAzure'
 export default function Hero() {
   return (
     <section className='w-full min-h-[80vh] flex flex-col items-center justify-center px-4 '>
@@ -38,10 +48,16 @@ export default function Hero() {
           <Marquee>
             <div className='flex flex-wrap justify-center items-center gap-8 opacity-75'>
               <Microsoft className='w-10 h-10' />
-              <Microsoft className='w-10 h-10' />
-              <Microsoft className='w-10 h-10' />
-              <Microsoft className='w-10 h-10' />
-              <Microsoft className='w-10 h-10' />
+              <AmazonWebServices className='w-10 h-10' />
+              <Appwrite className='w-10 h-10' />
+              <Docker className='w-10 h-10' />
+              <GmailIcon className='w-10 h-10' />
+              <GoogleIcon className='w-10 h-10' />
+              <Linux className='w-10 h-10' />
+              <IntelliJIDEA className='w-10 h-10' />
+              <JetBrains className='w-10 h-10' />
+              <Notion className='w-10 h-10' />
+              <MicrosoftAzure className='w-10 h-10' />
             </div>
           </Marquee>
         </div>
