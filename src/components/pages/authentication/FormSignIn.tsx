@@ -11,10 +11,14 @@ import { GithubOutlined } from '@ant-design/icons'
 import { Eye, EyeOff } from 'lucide-react'
 import GoogleIcon from '@/components/common/icons/GoogleIcon'
 import { useState } from 'react'
+import { loginAPI } from '@/services/api.service'
+import { useMutation } from '@tanstack/react-query'
+import { toast } from 'sonner'
+import { useNavigate } from 'react-router-dom'
 
 const FormSignIn = () => {
   const [showPassword, setShowPassword] = useState(false)
-
+  const navigate = useNavigate()
   const signInSchema = z.object({
     email: z.string().min(2).max(50),
     password: z.string().min(2).max(50)
@@ -28,23 +32,37 @@ const FormSignIn = () => {
     }
   })
 
-  function onSubmit(values: z.infer<typeof signInSchema>) {
-    console.log(values)
-    form.reset()
-  }
-
   const handleGoogleSignIn = () => {
-    window.location.href = 'http://localhost:8000/auth/google'
+    window.location.href = `${import.meta.env.VITE_AUTH_GOOGLE}`
   }
 
   const handleGithubSignIn = () => {
-    window.location.href = 'http://localhost:8000/auth/github'
+    window.location.href = `${import.meta.env.VITE_AUTH_GITHUB}`
   }
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
   }
-
+  const mutation = useMutation({
+    mutationFn: ({ email, password }: { email: string; password: string }) => loginAPI(email, password),
+    onSuccess: async (data) => {
+      console.log('Login success:', await data)
+      toast('🎉 Đăng nhập thành công!')
+      form.reset()
+      navigate('/')
+      localStorage.setItem('access_token', data.data.data?.accessToken as string)
+    },
+    onError: (error: any) => {
+      toast('❌ Đăng nhập thất bại!', {
+        description: error?.response?.data?.message || 'Có lỗi xảy ra, vui lòng thử lại!'
+      })
+      console.error('Login error:', error)
+    }
+  })
+  function onSubmit(values: { email: string; password: string }) {
+    mutation.mutate(values)
+    form.reset()
+  }
   return (
     <>
       <Form {...form}>
@@ -58,7 +76,7 @@ const FormSignIn = () => {
                   <FormItem>
                     <Label htmlFor='email'>Địa chỉ Email</Label>
                     <FormControl>
-                      <Input id='email' placeholder='@peduarte' {...field} />
+                      <Input id='email' placeholder='example@gmail.com' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -103,8 +121,8 @@ const FormSignIn = () => {
             Quên mật khẩu?
           </div>
           <CardFooter className='!p-3'>
-            <Button type='submit' className='w-full'>
-              Đăng Nhập
+            <Button type='submit' className='w-full' disabled={mutation.isPending}>
+              {mutation.isPending ? 'Đang đăng nhập...' : 'Đăng Nhập'}
             </Button>
           </CardFooter>
         </form>

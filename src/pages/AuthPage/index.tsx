@@ -1,5 +1,5 @@
 import LogoIcon from '@/components/common/icons/LogoIcon'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import FormSignIn from '@/components/pages/authentication/FormSignIn'
 import FormSignUp from '@/components/pages/authentication/FormSignUp'
@@ -11,12 +11,11 @@ const AuthenticationPage = () => {
     <>
       <HeaderAuthPage />
       <div className='bg-[#F4F4F5] min-h-[calc(100vh-40px)] pt-[10px] dark:bg-[#27272A]'>
-        <Card className='max-w-[500px] mx-auto'>
+        <Card className='max-w-[500px] mx-auto shadow-md'>
           <CardHeader>
             <Link to='/'>
               <LogoIcon className='w-6 h-6 cursor-pointer' />
             </Link>
-            <CardTitle className='text-[30px]'>Bắt đầu</CardTitle>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue='sign-in' className='max-w-[400px] mx-auto'>
