@@ -4,10 +4,10 @@ import { Button } from '../ui/button'
 import { ModeToggle } from '../common/ModeToggle'
 
 const navLinks = [
-  { name: 'Home', path: '#' },
-  { name: 'About', path: '#' },
-  { name: 'Courses', path: '#' },
-  { name: 'FAQ', path: '#' },
+  { name: 'Trang Chủ', path: '#' },
+  { name: 'Giới Thiệu', path: '#' },
+  { name: 'Khóa Học', path: '#' },
+  { name: 'Câu Hỏi Thường Gặp', path: '#' },
   { name: 'Blog', path: '#' }
 ]
 
@@ -29,9 +29,11 @@ const HeaderHomePage = () => {
                 {name}
               </Link>
             ))}
-            <Button variant='outline' className='justify-self-end'>
-              Sign in
-            </Button>
+            <Link to='/authentication'>
+              <Button variant='outline' className='justify-self-end'>
+                Đăng nhập
+              </Button>
+            </Link>
             <ModeToggle />
           </div>
         </nav>

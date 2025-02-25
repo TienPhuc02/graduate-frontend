@@ -19,7 +19,7 @@ const Benefits = () => {
       <TextAnimate text='Lợi ích khi tham gia EduGo' className='text-center text-3xl' type='rollIn'></TextAnimate>
       <motion.div className='grid grid-cols-3 gap-[30px]' variants={container} initial='hidden' animate='visible'>
         {BENEFITS.map((_, index) => {
-          return <CardAnimate key={index} title={_.title} description={_.description} />
+          return <CardAnimate icon={_.icon} key={index} title={_.title} description={_.description} />
         })}
       </motion.div>
     </>
