@@ -6,6 +6,8 @@ declare global {
     data: T
   }
 
+
+  
   //auth interface
   export interface ILogin {
     accessToken: string

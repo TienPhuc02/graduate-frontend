@@ -13,3 +13,12 @@ export const loginAPI = (email: string, password: string) => {
     }
   )
 }
+export const registerAPI = (data: IRegisterUserDTO) => {
+  console.log('🚀 ~ registerAPI ~ data:', data)
+  const urlBackend = '/auth/register'
+  return axios.post<IBackendRes<any>>(urlBackend, data, {
+    headers: {
+      delay: 1000
+    }
+  })
+}

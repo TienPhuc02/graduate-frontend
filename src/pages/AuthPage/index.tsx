@@ -5,8 +5,10 @@ import FormSignIn from '@/components/pages/authentication/FormSignIn'
 import FormSignUp from '@/components/pages/authentication/FormSignUp'
 import HeaderAuthPage from '@/components/layout/HeaderAuthPage'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 const AuthenticationPage = () => {
+  const [activeTab, setActiveTab] = useState('sign-in')
   return (
     <>
       <HeaderAuthPage />
@@ -18,7 +20,12 @@ const AuthenticationPage = () => {
             </Link>
           </CardHeader>
           <CardContent>
-            <Tabs defaultValue='sign-in' className='max-w-[400px] mx-auto'>
+            <Tabs
+              defaultValue={activeTab}
+              onValueChange={setActiveTab}
+              value={activeTab}
+              className='max-w-[400px] mx-auto'
+            >
               <TabsList className='grid w-full grid-cols-2 '>
                 <TabsTrigger value='sign-in'>Đăng Nhập</TabsTrigger>
                 <TabsTrigger value='sign-up'>Tạo Tài Khoản</TabsTrigger>
@@ -42,7 +49,7 @@ const AuthenticationPage = () => {
                       liền mạch, an toàn với tất cả các tính năng.
                     </CardDescription>
                   </CardHeader>
-                  <FormSignUp />
+                  <FormSignUp onRegisterSuccess={() => setActiveTab('sign-in')} />
                 </Card>
               </TabsContent>
             </Tabs>

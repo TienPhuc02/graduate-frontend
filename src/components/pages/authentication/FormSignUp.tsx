@@ -3,36 +3,57 @@ import { CardContent, CardFooter } from '@/components/ui/card'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { registerAPI } from '@/services/ApiService'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
 import { Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { z } from 'zod'
-
-const FormSignUp = () => {
+interface FormSignUpProps {
+  onRegisterSuccess?: () => void
+}
+const FormSignUp = ({ onRegisterSuccess }: FormSignUpProps) => {
   const [showPassword, setShowPassword] = useState(false)
-  const signInSchema = z.object({
-    firstName: z.string().optional(),
-    lastName: z.string().optional(),
-    email: z.string().optional(),
-    password: z.string().optional(),
-    address: z.string().optional(),
-    phoneNumber: z.number().optional()
+  const signUpSchema = z.object({
+    firstName: z.string(),
+    lastName: z.string(),
+    email: z.string(),
+    password: z.string(),
+    address: z.string(),
+    phoneNumber: z.coerce.number()
   })
 
-  const form = useForm<z.infer<typeof signInSchema>>({
-    resolver: zodResolver(signInSchema),
+  const form = useForm<z.infer<typeof signUpSchema>>({
+    resolver: zodResolver(signUpSchema),
     defaultValues: {
       firstName: '',
       lastName: '',
       email: '',
       password: '',
-      address: ''
+      address: '',
+      phoneNumber: 0
     }
   })
-
-  function onSubmit(values: z.infer<typeof signInSchema>) {
-    console.log(values)
+  const mutation = useMutation({
+    mutationFn: (data: IRegisterUserDTO) => registerAPI(data),
+    onSuccess: async (data) => {
+      console.log('Register success:', await data)
+      toast('🎉 Đăng ký thành công!')
+      form.reset()
+      onRegisterSuccess?.()
+    },
+    onError: (error: any) => {
+      toast('❌ Đăng ký thất bại!', {
+        description: error?.response?.data?.message || 'Có lỗi xảy ra, vui lòng thử lại!'
+      })
+      console.error('Register error:', error)
+    }
+  })
+  function onSubmit(values: z.infer<typeof signUpSchema>) {
+    console.log('🚀 ~ onSubmit ~ values:', values)
+    mutation.mutate(values)
     form.reset()
   }
   const togglePasswordVisibility = () => {
