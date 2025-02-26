@@ -1,4 +1,4 @@
-import createInstanceAxios from '@/services/customize.service'
+import createInstanceAxios from '@/services/CustomizeService'
 
 const axios = createInstanceAxios(`${import.meta.env.VITE_BACKEND_URL}`)
 export const loginAPI = (email: string, password: string) => {
