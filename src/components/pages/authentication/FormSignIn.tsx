@@ -44,12 +44,21 @@ const FormSignIn = () => {
     setShowPassword(!showPassword)
   }
   const mutation = useMutation({
-    mutationFn: ({ email, password }: { email: string; password: string }) => loginAPI(email, password),
+    mutationFn: async ({ email, password }: { email: string; password: string }) => {
+      return await loginAPI(email, password)
+    },
     onSuccess: async (data) => {
-      toast('🎉 Đăng nhập thành công!')
-      form.reset()
-      navigate('/')
-      localStorage.setItem('access_token', data.data.data?.accessToken as string)
+
+      if (data?.data?.accessToken) {
+        toast('🎉 Đăng nhập thành công!')
+        form.reset()
+        navigate('/')
+        localStorage.setItem('access_token', data.data.accessToken)
+      } else {
+        toast('❌ Đăng nhập thất bại!', {
+          description: 'Phản hồi từ server không hợp lệ!'
+        })
+      }
     },
     onError: (error: any) => {
       toast('❌ Đăng nhập thất bại!', {
@@ -57,6 +66,7 @@ const FormSignIn = () => {
       })
     }
   })
+
   function onSubmit(values: { email: string; password: string }) {
     mutation.mutate(values)
     form.reset()

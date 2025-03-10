@@ -6,8 +6,6 @@ declare global {
     data: T
   }
 
-
-  
   //auth interface
   export interface ILogin {
     accessToken: string
@@ -42,7 +40,7 @@ declare global {
   }
 
   //user interface
-  export interface IAdminUsers {
+  export interface IAdminUser {
     id: string
     role: ETypeUser
     firstName?: string
@@ -81,9 +79,9 @@ declare global {
   }
 
   //course interface
-  export interface IAdminCourses {
+  export interface IAdminCourse {
     id: string
-    instructor?: IAdminUsers
+    instructor?: IAdminUser
     title: string
     description: string
     category: string

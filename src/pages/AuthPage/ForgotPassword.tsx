@@ -18,7 +18,6 @@ function ForgotPassword() {
     mutationFn: ({ email }: { email: string }) => forgotPasswordAPI({ email }),
     onSuccess: (data) => {
       toast('🎉 gửi link liên kết thành công!')
-      console.log('🚀 ~ onSuccess: ~ data:', data)
       form.reset()
       navigate('/authentication/reset-forgotPassword')
     },
@@ -35,7 +34,6 @@ function ForgotPassword() {
     }
   })
   function onSubmit(values: { email: string }) {
-    console.log('🚀 ~ onSubmit ~ values:', values)
     mutation.mutate(values)
     form.reset()
   }

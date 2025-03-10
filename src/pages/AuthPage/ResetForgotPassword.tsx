@@ -39,7 +39,6 @@ function ResetForgotPassword() {
     }
   })
   function onSubmit(values: { currentPassword: string; newPassword: string; confirmPassword: string }) {
-    console.log('🚀 ~ onSubmit ~ values:', values)
     mutation.mutate(values)
     form.reset()
   }
