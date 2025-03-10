@@ -60,6 +60,25 @@ declare global {
     createdAt?: Date
     updatedAt?: Date
   }
+  export interface IAdminBlog {
+    id: string
+    title: string
+    content: string
+    categoryBlog: string
+    author: {
+      id: string
+      firstName: string
+      lastName: string
+    }
+    viewsBlog: number
+    isPublished: EBlogStatus
+    comments: string[]
+    thumbnail: string
+    isDeleted: boolean
+    deletedAt: Date
+    createdAt: Date
+    updatedAt: Date
+  }
   export interface ICreateUserDTO {
     role: ETypeUser
     firstName: string

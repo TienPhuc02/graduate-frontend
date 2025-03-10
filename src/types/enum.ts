@@ -29,6 +29,11 @@ export enum ESocialType {
   GOOGLE = 'GOOGLE',
   GITHUB = 'GITHUB'
 }
+export enum EBlogStatus {
+  PENDING = 'PENDING',
+  APPROVED = 'APPROVED',
+  REJECTED = 'REJECTED'
+}
 // enum CourseReaction {
 //   TERRIBLE = '😡',
 //   BAD = '😠',

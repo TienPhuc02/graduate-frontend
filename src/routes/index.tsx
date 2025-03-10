@@ -4,6 +4,7 @@ import AuthPage from '@/pages/AuthPage/AuthPage'
 import AuthSuccess from '@/pages/AuthPage/AuthSuccess'
 import ForgotPassword from '@/pages/AuthPage/ForgotPassword'
 import ResetForgotPassword from '@/pages/AuthPage/ResetForgotPassword'
+import BlogsPage from '@/pages/Blogs'
 import CoursesPage from '@/pages/Courses'
 import CourseDetail from '@/pages/DetailCourse'
 import HomePage from '@/pages/HomePage'
@@ -31,6 +32,14 @@ const router = createBrowserRouter([
         element: (
           <>
             <CoursesPage />
+          </>
+        )
+      },
+      {
+        path: '/blogs',
+        element: (
+          <>
+            <BlogsPage />
           </>
         )
       },

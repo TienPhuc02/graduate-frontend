@@ -66,6 +66,15 @@ interface GetCoursesParams {
   title?: string
   status?: string
   category?: string
+  sort?: string
+}
+interface GetBlogsParams {
+  page: number
+  pageSize: number
+  title?: string
+  isPublished?: string
+  categoryBlog?: string
+  sort?: string
 }
 
 export const getCoursesAPI = async (params: GetCoursesParams) => {
@@ -89,5 +98,21 @@ export const getCourseByIdAPI = async (idCourse: string) => {
   const urlBackend = `/course/${idCourse}`
   const response = await axios.get<IBackendRes<IAdminCourse>>(urlBackend)
   console.log('🚀 ~ getCourseByIdAPI ~ response:', response)
+  return response.data
+}
+export const getBlogsAPI = async (params: GetBlogsParams) => {
+  console.log('🚀 ~ getCoursesAPI ~ params:', params)
+
+  const query = new URLSearchParams()
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined) query.append(key, value.toString())
+  })
+
+  const urlBackend = `/blog?${query.toString()}`
+  const response = await axios.get<IBackendRes<IModelPaginate<IAdminBlog>>>(urlBackend)
+
+  console.log('🚀 ~ getCoursesAPI ~ response:', response)
+
   return response.data
 }
