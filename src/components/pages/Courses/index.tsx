@@ -10,14 +10,13 @@ import { getCoursesAPI } from '@/services/ApiService'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import dayjs, { Dayjs } from 'dayjs'
+import CustomPagination from '@/components/common/CustomPagination'
 
-// Định nghĩa interface cho Instructor
 interface Instructor {
   firstName?: string
   lastName?: string
 }
 
-// Định nghĩa interface cho Course
 interface Course {
   id: string
   title: string
@@ -29,18 +28,6 @@ interface Course {
   createdAt?: string
 }
 
-// Định nghĩa interface cho dữ liệu trả về từ API
-interface CoursesResponse {
-  results: Course[]
-  meta?: {
-    page: number
-    pageSize: number
-    totalCourses: number
-    totalPages: number
-  }
-}
-
-// Định nghĩa interface cho sort options
 interface SortOption {
   label: string
   value: string
@@ -65,18 +52,21 @@ const AllCourses: React.FC = () => {
     { label: 'Giá giảm dần', value: '-price' }
   ]
 
-const { data: coursesData, isLoading, error } = useQuery({
-  queryKey: ['getAllCourses', searchQuery, selectedCategory, status, currentPage] as const,
-  queryFn: () =>
-    getCoursesAPI({
-      page: currentPage,
-      pageSize,
-      title: searchQuery || undefined,
-      status: status !== 'All' ? status : undefined,
-      category: selectedCategory !== 'All' ? selectedCategory : undefined
-    })
-})
-
+  const {
+    data: coursesData,
+    isLoading,
+    error
+  } = useQuery({
+    queryKey: ['getAllCourses', searchQuery, selectedCategory, status, currentPage] as const,
+    queryFn: () =>
+      getCoursesAPI({
+        page: currentPage,
+        pageSize,
+        title: searchQuery || undefined,
+        status: status !== 'All' ? status : undefined,
+        category: selectedCategory !== 'All' ? selectedCategory : undefined
+      })
+  })
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value)
@@ -152,13 +142,8 @@ const { data: coursesData, isLoading, error } = useQuery({
             </SelectContent>
           </Select>
         </div>
-
-        {/* Bộ lọc giá */}
-
-        {/* Bộ lọc ngày tạo */}
       </div>
 
-      {/* Bộ lọc danh mục */}
       <div className='flex gap-3 mb-6 flex-wrap justify-center'>
         {categories.map((category) => (
           <Button
@@ -172,7 +157,6 @@ const { data: coursesData, isLoading, error } = useQuery({
         ))}
       </div>
 
-      {/* Danh sách khóa học */}
       {courses.length > 0 ? (
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
           {courses.map((course) => (
@@ -211,16 +195,13 @@ const { data: coursesData, isLoading, error } = useQuery({
         <p className='text-center text-gray-500 dark:text-gray-400'>Không tìm thấy khóa học nào.</p>
       )}
 
-      {/* Phân trang */}
       {totalCourses > 0 && (
         <div className='flex justify-center mt-8'>
-          <Pagination
-            current={currentPage}
+          <CustomPagination
+            currentPage={currentPage}
             pageSize={pageSize}
             total={totalCourses}
-            onChange={handlePageChange}
-            showSizeChanger={false}
-            className='dark:text-white'
+            onPageChange={handlePageChange}
           />
         </div>
       )}
