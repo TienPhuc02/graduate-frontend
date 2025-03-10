@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import CustomPagination from '@/components/common/CustomPagination'
 import { ECourseCategory, EBlogStatus } from '@/types/enum'
+import { CourseDetailSkeleton } from '../DetailCourse/CourseDetailSkeleton'
 
 interface Author {
   firstName?: string
@@ -91,7 +92,13 @@ const AllBlogs: React.FC = () => {
     setCurrentPage(page)
   }
 
-  if (isLoading) return <p>Loading...</p>
+  if (isLoading)
+    return (
+      <p>
+        {' '}
+        <CourseDetailSkeleton />
+      </p>
+    )
   if (error) return <p>Error fetching blogs: {error.message}</p>
 
   const blogs: IAdminBlog[] = blogsData?.results || []

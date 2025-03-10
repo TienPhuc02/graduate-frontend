@@ -8,6 +8,7 @@ import { getCoursesAPI } from '@/services/ApiService'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import CustomPagination from '@/components/common/CustomPagination'
+import { CourseDetailSkeleton } from '../DetailCourse/CourseDetailSkeleton'
 
 interface Instructor {
   firstName?: string
@@ -81,7 +82,12 @@ const AllCourses: React.FC = () => {
     setCurrentPage(page)
   }
 
-  if (isLoading) return <p>Loading...</p>
+  if (isLoading)
+    return (
+      <p>
+        <CourseDetailSkeleton />
+      </p>
+    )
   if (error) return <p>Error fetching courses: {error.message}</p>
 
   const courses: IAdminCourse[] = coursesData?.results || []
