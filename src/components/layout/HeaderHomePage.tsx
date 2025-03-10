@@ -3,12 +3,23 @@ import LogoIcon from '../common/icons/LogoIcon'
 import { Button } from '../ui/button'
 import { ModeToggle } from '../common/ModeToggle'
 
+const handleNavClick = (event: React.MouseEvent, path: string) => {
+  if (path.startsWith('#')) {
+    event.preventDefault()
+    const sectionId = path.substring(1)
+    const section = document.getElementById(sectionId)
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+}
+
 const navLinks = [
-  { name: 'Trang Chủ', path: '#' },
+  { name: 'Trang Chủ', path: '/' },
   { name: 'Giới Thiệu', path: '#' },
-  { name: 'Khóa Học', path: '#' },
-  { name: 'Câu Hỏi Thường Gặp', path: '#' },
-  { name: 'Blog', path: '#' }
+  { name: 'Khóa Học', path: '/courses' },
+  { name: 'Câu Hỏi Thường Gặp', path: '#faq' },
+  { name: 'Blog', path: '/blogs' }
 ]
 
 const linkClass =
@@ -24,11 +35,17 @@ const HeaderHomePage = () => {
         </Link>
         <nav>
           <div className='ml-auto flex gap-2'>
-            {navLinks.map(({ name, path }) => (
-              <Link key={name} to={path} className={linkClass}>
-                {name}
-              </Link>
-            ))}
+            {navLinks.map(({ name, path }) =>
+              path.startsWith('#') ? (
+                <a key={path} href={path} onClick={(e) => handleNavClick(e, path)} className={linkClass}>
+                  {name}
+                </a>
+              ) : (
+                <Link key={path} to={path} className={linkClass}>
+                  {name}
+                </Link>
+              )
+            )}
             <Link to='/authentication'>
               <Button variant='outline' className='justify-self-end'>
                 Đăng nhập
