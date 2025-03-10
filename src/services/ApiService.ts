@@ -60,11 +60,29 @@ export const updatePasswordAPI = ({
 
 //course
 
-export const getCoursesAPI = async (queryKey: string[]) => {
-  const query = queryKey[1] || ''
-  const urlBackend = `/course?${query}`
+interface GetCoursesParams {
+  page: number
+  pageSize: number
+  title?: string
+  status?: string
+  category?: string
+}
+
+export const getCoursesAPI = async (params: GetCoursesParams) => {
+  console.log('🚀 ~ getCoursesAPI ~ params:', params)
+
+  const query = new URLSearchParams()
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined) query.append(key, value.toString())
+  })
+
+  const urlBackend = `/course?${query.toString()}`
   const response = await axios.get<IBackendRes<IModelPaginate<IAdminCourse>>>(urlBackend)
-  return response.data.results
+
+  console.log('🚀 ~ getCoursesAPI ~ response:', response)
+
+  return response.data
 }
 
 export const getCourseByIdAPI = async (idCourse: string) => {

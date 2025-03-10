@@ -4,6 +4,7 @@ import AuthPage from '@/pages/AuthPage/AuthPage'
 import AuthSuccess from '@/pages/AuthPage/AuthSuccess'
 import ForgotPassword from '@/pages/AuthPage/ForgotPassword'
 import ResetForgotPassword from '@/pages/AuthPage/ResetForgotPassword'
+import CoursesPage from '@/pages/Courses'
 import CourseDetail from '@/pages/DetailCourse'
 import HomePage from '@/pages/HomePage'
 import { createBrowserRouter } from 'react-router-dom'
@@ -22,6 +23,14 @@ const router = createBrowserRouter([
         element: (
           <>
             <HomePage />
+          </>
+        )
+      },
+      {
+        path: '/courses',
+        element: (
+          <>
+            <CoursesPage />
           </>
         )
       },
@@ -70,13 +79,5 @@ const router = createBrowserRouter([
       }
     ]
   }
-  // {
-  //   path: '/course/:id',
-  //   element: (
-  //     <>
-  //       <CourseDetail />
-  //     </>
-  //   )
-  // }
 ])
 export default router

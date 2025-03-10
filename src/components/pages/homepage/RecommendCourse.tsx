@@ -13,8 +13,8 @@ const RecommendCourse = () => {
     isLoading,
     error
   } = useQuery({
-    queryKey: ['getRecommendCourses', ''],
-    queryFn: ({ queryKey }) => getCoursesAPI(queryKey)
+    queryKey: ['getRecommendCourses'],
+    queryFn: () => getCoursesAPI({ page: 1, pageSize: 3 })
   })
 
   if (isLoading) return <p>Loading...</p>
@@ -30,8 +30,8 @@ const RecommendCourse = () => {
       </div>
 
       <div className='flex overflow-x-auto gap-4 mt-6'>
-        {courses && courses?.length > 0 ? (
-          courses.map((course: IAdminCourse) => (
+        {courses && courses.results && courses?.results?.length > 0 ? (
+          courses?.results?.map((course: IAdminCourse) => (
             <Card
               key={course.id}
               onClick={() => navigate(`/course/${course.id}`)}
