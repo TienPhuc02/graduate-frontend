@@ -38,7 +38,7 @@ const FormSignUp = ({ onRegisterSuccess }: FormSignUpProps) => {
   })
   const mutation = useMutation({
     mutationFn: (data: IRegisterUserDTO) => registerAPI(data),
-    onSuccess: async (data) => {
+    onSuccess: () => {
       toast('🎉 Đăng ký thành công!')
       form.reset()
       onRegisterSuccess?.()

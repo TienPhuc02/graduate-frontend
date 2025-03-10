@@ -29,25 +29,25 @@ export enum ESocialType {
   GOOGLE = 'GOOGLE',
   GITHUB = 'GITHUB'
 }
-enum CourseReaction {
-  TERRIBLE = '😡',
-  BAD = '😠',
-  OKAY = '😐',
-  GOOD = '😊',
-  AWESOME = '🤩'
-}
-enum CourseProcess {
-  ZERO_PERCENT = 0,
-  TWENTY_PERCENT = 20,
-  FORTY_PERCENT = 40,
-  SIXTY_PERCENT = 60,
-  EIGHTY_PERCENT = 80,
-  HUNDRED_PERCENT = 100
-}
-enum CourseRating {
-  BAD = 1,
-  BELOW_AVERAGE = 2,
-  AVERAGE = 3,
-  GOOD = 4,
-  EXCELLENT = 5
-}
+// enum CourseReaction {
+//   TERRIBLE = '😡',
+//   BAD = '😠',
+//   OKAY = '😐',
+//   GOOD = '😊',
+//   AWESOME = '🤩'
+// }
+// enum CourseProcess {
+//   ZERO_PERCENT = 0,
+//   TWENTY_PERCENT = 20,
+//   FORTY_PERCENT = 40,
+//   SIXTY_PERCENT = 60,
+//   EIGHTY_PERCENT = 80,
+//   HUNDRED_PERCENT = 100
+// }
+// enum CourseRating {
+//   BAD = 1,
+//   BELOW_AVERAGE = 2,
+//   AVERAGE = 3,
+//   GOOD = 4,
+//   EXCELLENT = 5
+// }
