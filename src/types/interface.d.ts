@@ -105,6 +105,7 @@ declare global {
     title: string
     description: string
     category: string
+    comments: IAdminComment[]
     qna: Qna[]
     requirements: string[]
     status: boolean
@@ -160,5 +161,31 @@ declare global {
     updatedAt: Date
     isDeleted: boolean
     deletedAt?: Date | null
+  }
+  export interface IAdminComment {
+    id: string
+    user: string
+    course?: string | null
+    blog?: string | null
+    text: string
+    likesCount: number
+    parentCommentId?: string | null
+    isEdited: boolean
+    isDeleted: boolean
+    deletedAt?: string | null
+    createdAt: string
+    updatedAt?: string | null
+    status: 'pending' | 'approved' | 'rejected'
+    replies?: IAdminComment[]
+  }
+  export interface IComment {
+    id: string
+    content: string
+    user: { id: string; firstName: string; lastName: string; profilePicture?: string }
+    createdAt: string
+    replies: IComment[]
+    parent?: IComment | null
+    isDeleted: boolean
+    status: 'pending' | 'approved' | 'rejected'
   }
 }

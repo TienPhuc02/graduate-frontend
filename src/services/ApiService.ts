@@ -116,3 +116,25 @@ export const getBlogsAPI = async (params: GetBlogsParams) => {
 
   return response.data
 }
+export const createCommentAPI = ({
+  userId,
+  courseId,
+  blogId,
+  text,
+  parentCommentId
+}: {
+  userId: string
+  courseId?: string
+  blogId?: string
+  text: string
+  parentCommentId?: string
+}) => {
+  const urlBackend = `/comment`
+  return axios.post<IBackendRes<IAdminComment>>(urlBackend, {
+    userId,
+    courseId,
+    blogId,
+    text,
+    parentCommentId
+  })
+}

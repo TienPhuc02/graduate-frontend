@@ -36,12 +36,11 @@ const AllBlogs: React.FC = () => {
 
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const [pageSize] = useState<number>(10) // Số lượng blog mỗi trang
+  const [pageSize] = useState<number>(10)
   const [selectedCategory, setSelectedCategory] = useState<string>('')
   const [status, setStatus] = useState<string>('')
   const [sort, setSort] = useState<string>('')
 
-  // Danh sách danh mục và trạng thái
   const categories: string[] = ['All', ...Object.values(ECourseCategory)]
   const statuses: string[] = ['All', ...Object.values(EBlogStatus)]
   const sortOptions: SortOption[] = [
@@ -150,7 +149,6 @@ const AllBlogs: React.FC = () => {
         ))}
       </div>
 
-      {/* Danh sách blog */}
       {blogs.length > 0 ? (
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
           {blogs.map((blog) => (
@@ -186,7 +184,6 @@ const AllBlogs: React.FC = () => {
         <p className='text-center text-gray-500 dark:text-gray-400'>Không tìm thấy bài viết nào.</p>
       )}
 
-      {/* Phân trang */}
       {totalBlogs > 0 && (
         <div className='flex justify-center mt-8'>
           <CustomPagination
