@@ -1,15 +1,39 @@
+import WrapperApp from '@/components/pages/WrapperApp'
 import AuthenticationPage from '@/pages/AuthPage'
 import AuthPage from '@/pages/AuthPage/AuthPage'
 import AuthSuccess from '@/pages/AuthPage/AuthSuccess'
 import ForgotPassword from '@/pages/AuthPage/ForgotPassword'
 import ResetForgotPassword from '@/pages/AuthPage/ResetForgotPassword'
+import CourseDetail from '@/pages/DetailCourse'
 import HomePage from '@/pages/HomePage'
 import { createBrowserRouter } from 'react-router-dom'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <HomePage />
+    element: (
+      <>
+        <WrapperApp />
+      </>
+    ),
+    children: [
+      {
+        index: true,
+        element: (
+          <>
+            <HomePage />
+          </>
+        )
+      },
+      {
+        path: '/course/:id',
+        element: (
+          <>
+            <CourseDetail />
+          </>
+        )
+      }
+    ]
   },
   {
     path: '/authentication',
@@ -46,5 +70,13 @@ const router = createBrowserRouter([
       }
     ]
   }
+  // {
+  //   path: '/course/:id',
+  //   element: (
+  //     <>
+  //       <CourseDetail />
+  //     </>
+  //   )
+  // }
 ])
 export default router

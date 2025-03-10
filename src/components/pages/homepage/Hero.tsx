@@ -19,7 +19,7 @@ import Photoshop from '@/components/common/icons/PhotoshopIcon'
 export default function Hero() {
   return (
     <div className='w-full flex flex-col items-center justify-center px-4'>
-      <div className='max-w-8xl mx-auto text-center space-y-8 mt-[100px]'>
+      <div className='max-w-8xl mx-auto text-center space-y-8 pt-[100px]'>
         <div className='text-4xl md:text-5xl lg:text-6xl font-bold mx-auto'>
           <div data-aos='zoom-out-up'>Nâng tầm tương lai của bạn với các khóa học được thiết kế để</div>
           <div className='text-blue-600 relative'>

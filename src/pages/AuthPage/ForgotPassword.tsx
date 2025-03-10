@@ -16,7 +16,7 @@ function ForgotPassword() {
   })
   const mutation = useMutation({
     mutationFn: ({ email }: { email: string }) => forgotPasswordAPI({ email }),
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast('🎉 gửi link liên kết thành công!')
       form.reset()
       navigate('/authentication/reset-forgotPassword')

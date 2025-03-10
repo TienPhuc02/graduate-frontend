@@ -50,6 +50,7 @@ declare global {
     phoneNumber?: number
     address?: string
     isVerified: boolean
+
     profilePicture?: string
     resetPasswordToken?: string
     resetPasswordExpires?: Date
@@ -81,13 +82,15 @@ declare global {
   //course interface
   export interface IAdminCourse {
     id: string
-    instructor?: IAdminUser
+    instructor: IAdminUser
     title: string
     description: string
     category: string
     qna: Qna[]
     requirements: string[]
     status: boolean
+    duration: number
+    viewsCourse: number
     isDeleted: boolean
     benefits: string[]
     level: string
@@ -98,40 +101,36 @@ declare global {
     updatedAt: Date
     deletedAt: null
     rating: null
+    lectureCourses: IAdminLecture[]
   }
-
   export interface Qna {
     answer: string
     question: string
   }
-  export interface ICreateCourseDTO {
-    instructor: string
-    title: string
-    description: string
-    category: ECourseCategory
-    level: ECourseLevel
-    price: number
-    thumbnail?: File | string
-    requirements: { requirement: string }[]
-    benefits: { benefit: string }[]
-    qna: { question: string; answer: string }[]
-  }
 
-  export interface IUpdateCourseDTO extends ICreateCourseDTO {}
-
-  export interface IAdminLectures {
+  export interface IAdminLecture {
     id: string
     course: Course
-    title?: string
-    lessons: IAdminLessons[]
+    title: string
+    lessons: IAdminLesson[]
     createdAt: Date
     updatedAt: Date
     isDeleted: boolean
     deletedAt?: Date | null
   }
-  export interface IAdminLessons {
+  export interface IAdminLecture {
     id: string
-    lectureCourse: IAdminLectures
+    course: Course
+    title?: string
+    lessons: IAdminLesson[]
+    createdAt: Date
+    updatedAt: Date
+    isDeleted: boolean
+    deletedAt?: Date | null
+  }
+  export interface IAdminLesson {
+    id: string
+    lectureCourse: IAdminLecture
     title?: string
     contentType: EContentLessonType[]
     contentUrl?: string
@@ -142,16 +141,5 @@ declare global {
     updatedAt: Date
     isDeleted: boolean
     deletedAt?: Date | null
-  }
-  export interface ICreateLessonDTO {
-    title: string
-    contentType: EContentLessonType[]
-    contentUrl?: string
-    pdfUrl?: string
-    lectureCourseId: string
-    contentText: string
-    order?: number
-    isDeleted?: boolean
-    deletedAt?: Date
   }
 }

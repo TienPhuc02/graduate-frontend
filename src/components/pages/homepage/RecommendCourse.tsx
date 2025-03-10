@@ -4,9 +4,10 @@ import { useQuery } from '@tanstack/react-query'
 import { Image } from 'antd'
 import { ArrowRight } from 'lucide-react'
 import { getCoursesAPI } from '@/services/ApiService'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const RecommendCourse = () => {
+  const navigate = useNavigate()
   const {
     data: courses,
     isLoading,
@@ -33,7 +34,8 @@ const RecommendCourse = () => {
           courses.map((course: IAdminCourse) => (
             <Card
               key={course.id}
-              className='min-w-[280px] shadow-md bg-white dark:bg-neutral-900 dark:border dark:border-gray-700'
+              onClick={() => navigate(`/course/${course.id}`)}
+              className='min-w-[280px] cursor-pointer shadow-md bg-white dark:bg-neutral-900 dark:border dark:border-gray-700'
             >
               <CardContent className='p-3 text-gray-900 dark:text-white'>
                 <Image
