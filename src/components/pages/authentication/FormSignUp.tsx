@@ -39,7 +39,6 @@ const FormSignUp = ({ onRegisterSuccess }: FormSignUpProps) => {
   const mutation = useMutation({
     mutationFn: (data: IRegisterUserDTO) => registerAPI(data),
     onSuccess: async (data) => {
-      console.log('Register success:', await data)
       toast('🎉 Đăng ký thành công!')
       form.reset()
       onRegisterSuccess?.()
@@ -48,11 +47,9 @@ const FormSignUp = ({ onRegisterSuccess }: FormSignUpProps) => {
       toast('❌ Đăng ký thất bại!', {
         description: error?.response?.data?.message || 'Có lỗi xảy ra, vui lòng thử lại!'
       })
-      console.error('Register error:', error)
     }
   })
   function onSubmit(values: z.infer<typeof signUpSchema>) {
-    console.log('🚀 ~ onSubmit ~ values:', values)
     mutation.mutate(values)
     form.reset()
   }

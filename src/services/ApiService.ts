@@ -14,11 +14,46 @@ export const loginAPI = (email: string, password: string) => {
   )
 }
 export const registerAPI = (data: IRegisterUserDTO) => {
-  console.log('🚀 ~ registerAPI ~ data:', data)
   const urlBackend = '/auth/register'
   return axios.post<IBackendRes<any>>(urlBackend, data, {
     headers: {
       delay: 1000
     }
   })
+}
+export const forgotPasswordAPI = ({ email }: { email: string }) => {
+  const urlBackend = '/auth/forgot-password'
+  return axios.post<IBackendRes<any>>(
+    urlBackend,
+    { email },
+    {
+      headers: {
+        delay: 1000
+      }
+    }
+  )
+}
+export const updatePasswordAPI = ({
+  currentPassword,
+  newPassword,
+  confirmPassword
+}: {
+  currentPassword: string
+  newPassword: string
+  confirmPassword: string
+}) => {
+  const urlBackend = '/auth/update-password'
+  return axios.post<IBackendRes<any>>(
+    urlBackend,
+    {
+      currentPassword,
+      newPassword,
+      confirmPassword
+    },
+    {
+      headers: {
+        delay: 1000
+      }
+    }
+  )
 }

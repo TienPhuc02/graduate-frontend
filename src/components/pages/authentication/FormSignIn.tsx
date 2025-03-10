@@ -14,7 +14,7 @@ import { useState } from 'react'
 import { loginAPI } from '@/services/ApiService'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const FormSignIn = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -46,7 +46,6 @@ const FormSignIn = () => {
   const mutation = useMutation({
     mutationFn: ({ email, password }: { email: string; password: string }) => loginAPI(email, password),
     onSuccess: async (data) => {
-      console.log('Login success:', await data)
       toast('🎉 Đăng nhập thành công!')
       form.reset()
       navigate('/')
@@ -56,7 +55,6 @@ const FormSignIn = () => {
       toast('❌ Đăng nhập thất bại!', {
         description: error?.response?.data?.message || 'Có lỗi xảy ra, vui lòng thử lại!'
       })
-      console.error('Login error:', error)
     }
   })
   function onSubmit(values: { email: string; password: string }) {
@@ -117,9 +115,11 @@ const FormSignIn = () => {
               />
             </div>
           </CardContent>
-          <div className='flex justify-end underline pr-6 text-[14px] text-[#71717a] mb-[10px] cursor-pointer'>
-            Quên mật khẩu?
-          </div>
+          <Link to='forgot-password'>
+            <div className='flex justify-end underline pr-6 text-[14px] text-[#71717a] mb-[10px] cursor-pointer'>
+              Quên mật khẩu?
+            </div>
+          </Link>
           <CardFooter className='!p-3'>
             <Button type='submit' className='w-full' disabled={mutation.isPending}>
               {mutation.isPending ? 'Đang đăng nhập...' : 'Đăng Nhập'}
