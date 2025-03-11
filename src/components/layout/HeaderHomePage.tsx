@@ -22,6 +22,7 @@ const HeaderHomePage = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const { user, logout } = useAuthStore()
+  console.log('🚀 ~ HeaderHomePage ~ user:', user)
 
   const handleNavClick = (event: React.MouseEvent, path: string) => {
     event.preventDefault()
@@ -39,7 +40,14 @@ const HeaderHomePage = () => {
   }
   const handleLogout = async () => {
     try {
-      await logoutAPI()
+      if (user?.socialProvider === 'GOOGLE' || user?.socialProvider === 'GITHUB') {
+        await fetch('/auth/strategies/login', {
+          method: 'GET',
+          credentials: 'include'
+        })
+      } else {
+        await logoutAPI()
+      }
 
       logout()
       localStorage.removeItem('access_token')
@@ -50,6 +58,7 @@ const HeaderHomePage = () => {
       navigate('/')
     }
   }
+
   const navLinks = [
     { name: 'Trang Chủ', path: '/' },
     { name: 'Giới Thiệu', path: '#' },
