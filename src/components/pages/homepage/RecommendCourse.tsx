@@ -42,7 +42,7 @@ const RecommendCourse = () => {
             <Card
               key={course.id}
               onClick={() => navigate(`/course/${course.id}`)}
-              className='min-w-[280px] cursor-pointer shadow-md bg-white dark:bg-neutral-900 dark:border dark:border-gray-700'
+              className='max-w-[310px] cursor-pointer shadow-md bg-white dark:bg-neutral-900 dark:border dark:border-gray-700'
             >
               <CardContent className='p-3 text-gray-900 dark:text-white'>
                 <Image

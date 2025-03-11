@@ -22,7 +22,6 @@ const HeaderHomePage = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const { user, logout } = useAuthStore()
-  console.log('🚀 ~ HeaderHomePage ~ user:', user)
 
   const handleNavClick = (event: React.MouseEvent, path: string) => {
     event.preventDefault()
@@ -108,10 +107,13 @@ const HeaderHomePage = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align='end'>
                   <DropdownMenuItem asChild>
-                    <Link to='/profile'>Cập nhật thông tin</Link>
+                    <Link to='/my-profile'>Cập nhật thông tin</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link to='/cart'>Giỏ hàng</Link>
+                    <Link to='/my-cart'>Giỏ hàng</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to='/my-course'>Giỏ hàng</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={handleLogout} className='text-red-500'>
                     Đăng xuất

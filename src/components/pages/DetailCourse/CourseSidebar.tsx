@@ -1,13 +1,69 @@
-// components/course/CourseSidebar.tsx
+import { useState } from 'react'
+import { useMutation } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 import { Avatar } from 'antd'
-import { Card, CardContent, CardHeader } from '../../ui/card'
-import { Button } from '../../ui/button'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { useOrderStore } from '@/stores/userorderStore'
+import { createOrderAPI, createOrderItemAPI } from '@/services/ApiService'
+import useAuthStore from '@/stores/authStore'
 
 interface CourseSidebarProps {
   course: IAdminCourse
+  userId: string
 }
 
-export const CourseSidebar = ({ course }: CourseSidebarProps) => {
+export const CourseSidebar = ({ course, userId }: CourseSidebarProps) => {
+  const navigate = useNavigate()
+  const { order, setOrder } = useOrderStore()
+  const [orderId, setOrderId] = useState<string | null>(order?.id || null)
+  const { user } = useAuthStore()
+  const isRegistered = (order?.orderItems ?? []).some((item) => item.courseId === course.id)
+
+  const createOrderMutation = useMutation({
+    mutationFn: (data: ICreateOrderDTO) => createOrderAPI({ ...data, userId: user?.id! }),
+    onSuccess: (data) => {
+      setOrder(data)
+      setOrderId(data.id)
+      createOrderItemMutation.mutate({
+        orderId: data.id,
+        courseId: course.id,
+        price: Number(course.price)
+      })
+    }
+  })
+
+  const createOrderItemMutation = useMutation({
+    mutationFn: (data: ICreateOrderItemDTO) => createOrderItemAPI(data),
+    onSuccess: (data) => {
+      setOrder((prev) => ({
+        ...prev!,
+        orderItems: [...(prev?.orderItems || []), data]
+      }))
+    }
+  })
+
+  const handleRegister = () => {
+    if (isRegistered) {
+      navigate('/my-cart')
+    } else {
+      if (orderId) {
+        createOrderItemMutation.mutate({
+          orderId,
+          courseId: course.id,
+          price: Number(course.price)
+        })
+      } else {
+        createOrderMutation.mutate({
+          userId,
+          totalAmount: Number(course.price),
+          status: 'pending',
+          orderItems: [{ productId: course.id, quantity: 1 }]
+        })
+      }
+    }
+  }
+
   return (
     <div className='md:w-1/3'>
       <Card>
@@ -30,7 +86,17 @@ export const CourseSidebar = ({ course }: CourseSidebarProps) => {
               </span>
             </div>
           )}
-          <Button className='w-full mt-4'>Đăng ký ngay</Button>
+          <Button
+            className='w-full mt-4'
+            onClick={handleRegister}
+            disabled={createOrderMutation.status === 'pending' || createOrderItemMutation.status === 'pending'}
+          >
+            {createOrderMutation.status === 'pending' || createOrderItemMutation.status === 'pending'
+              ? 'Đang xử lý...'
+              : isRegistered
+                ? 'Đi tới giỏ hàng'
+                : 'Đăng ký ngay'}
+          </Button>
         </CardContent>
       </Card>
     </div>

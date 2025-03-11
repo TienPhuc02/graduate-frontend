@@ -204,4 +204,32 @@ declare global {
     isDeleted: boolean
     status: 'pending' | 'approved' | 'rejected'
   }
+  export interface IAdminOrderItem {
+    id: string
+    order: IAdminOrder
+    course: IAdminCourse
+    courseId: string
+    price: number
+    quantity?: number
+    createdAt: string
+    updatedAt: string
+  }
+  export interface IAdminOrder {
+    id: string
+    user: IAdminUser
+    totalAmount: number
+    status: 'pending' | 'processing' | 'completed' | 'cancelled'
+    orderDate: Date
+    orderItems: IAdminOrderItem[]
+    coupon?: {
+      id: string
+      code: string
+      discount: number
+    } | null
+    couponId?: string | null
+    isDeleted: boolean
+    createdAt: string
+    updatedAt: string
+    deletedAt?: string | null
+  }
 }

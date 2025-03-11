@@ -13,6 +13,7 @@ export const loginAPI = (email: string, password: string) => {
     }
   )
 }
+
 export const logoutAPI = () => {
   const urlBackend = '/auth/logout'
   return axios.post<IBackendRes<any>>(urlBackend, {
@@ -68,7 +69,6 @@ export const updatePasswordAPI = ({
 }
 
 export const getCoursesAPI = async (params: GetCoursesParams) => {
-
   const query = new URLSearchParams()
 
   Object.entries(params).forEach(([key, value]) => {
@@ -77,7 +77,6 @@ export const getCoursesAPI = async (params: GetCoursesParams) => {
 
   const urlBackend = `/course?${query.toString()}`
   const response = await axios.get<IBackendRes<IModelPaginate<IAdminCourse>>>(urlBackend)
-
 
   return response.data
 }
@@ -94,7 +93,6 @@ export const getCourseByIdAPI = async (idCourse: string) => {
   return response.data
 }
 export const getBlogsAPI = async (params: GetBlogsParams) => {
-
   const query = new URLSearchParams()
 
   Object.entries(params).forEach(([key, value]) => {
@@ -103,7 +101,6 @@ export const getBlogsAPI = async (params: GetBlogsParams) => {
 
   const urlBackend = `/blog?${query.toString()}`
   const response = await axios.get<IBackendRes<IModelPaginate<IAdminBlog>>>(urlBackend)
-
 
   return response.data
 }
@@ -128,4 +125,14 @@ export const createCommentAPI = ({
     text,
     parentCommentId
   })
+}
+export const createOrderItemAPI = async (data: ICreateOrderItemDTO) => {
+  const urlBackend = `/orderItem`
+  const response = await axios.post<IBackendRes<IAdminOrderItem>>(urlBackend, data)
+  return response.data
+}
+export const createOrderAPI = async (data: ICreateOrderDTO) => {
+  const urlBackend = `/order`
+  const response = await axios.post<IBackendRes<IAdminOrder>>(urlBackend, data)
+  return response.data
 }
