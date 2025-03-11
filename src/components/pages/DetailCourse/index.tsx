@@ -15,24 +15,14 @@ import { Button } from '../../ui/button'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '../../ui/form'
 import { Input } from '../../ui/input'
 import { Badge } from '../../ui/badge'
-import { Card, CardContent, CardHeader } from '../../ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '../../ui/card'
 import { Separator } from '../../ui/separator'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../../ui/accordion'
 
 interface CourseDetailProps {
   courseId: string
 }
-// interface Comment {
-//   id: string
-//   content: string
-//   user: { id: string; firstName: string; lastName: string; profilePicture?: string }
-//   createdAt: string
-//   replies: Comment[]
-//   parent?: Comment | null
-//   isDeleted: boolean
-//   status: 'pending' | 'approved' | 'rejected'
-// }
-// Schema validation cho form bình luận
+
 const commentSchema = z.object({
   content: z.string().min(1, 'Nội dung bình luận không được để trống')
 })
@@ -50,32 +40,26 @@ export const CourseDetail = ({ courseId }: CourseDetailProps) => {
     queryFn: () => getCourseByIdAPI(courseId)
   })
   console.log('🚀 ~ CourseDetail ~ courseResponse:', courseResponse)
-
-  // Giả định userId của người dùng hiện tại (lấy từ context hoặc state)
-  const userId = 'current-user-id' // Thay bằng logic lấy userId thực tế
-
-  // Form để tạo bình luận mới
+  const userId = 'current-user-id'
   const form = useForm<CommentFormValues>({
     resolver: zodResolver(commentSchema),
     defaultValues: { content: '' }
   })
 
-  // Form để trả lời bình luận
   const [replyingCommentId, setReplyingCommentId] = useState<string | null>(null)
   const replyForm = useForm<CommentFormValues>({
     resolver: zodResolver(commentSchema),
     defaultValues: { content: '' }
   })
 
-  // Hàm ánh xạ dữ liệu từ IAdminComment sang Comment
   const mapToComment = (data: IAdminComment): IComment => ({
     id: data.id,
     content: data.text,
     user: {
-      id: userId, // Giả định tạm thời, cần API lấy thông tin user nếu có
-      firstName: 'Người dùng', // Giả định tạm thời
-      lastName: '', // Giả định tạm thời
-      profilePicture: undefined // Giả định tạm thời
+      id: userId,
+      firstName: 'Người dùng',
+      lastName: '',
+      profilePicture: undefined
     },
     createdAt: data.createdAt,
     replies: [], // Sẽ được xây dựng lại trong buildCommentTree
@@ -236,7 +220,6 @@ export const CourseDetail = ({ courseId }: CourseDetailProps) => {
 
   return (
     <div className='container mx-auto py-8'>
-      {/* Phần thông tin khóa học */}
       <div className='flex flex-col md:flex-row gap-6'>
         <div className='md:w-2/3'>
           <img src={course.thumbnail} alt={course.title} className='w-full h-64 object-cover rounded-lg mb-4' />
@@ -279,7 +262,7 @@ export const CourseDetail = ({ courseId }: CourseDetailProps) => {
       <Separator className='my-8' />
 
       <div>
-        <h2 className='text-2xl font-semibold mb-4'>Yêu cầu</h2>
+        <h2 className='text-2xl font-semibold mb-4'>Yêu cầu khóa học</h2>
         <ul className='list-disc pl-5'>
           {course?.requirements?.map((req, index) => (
             <li key={index} className='text-muted-foreground'>
@@ -318,13 +301,33 @@ export const CourseDetail = ({ courseId }: CourseDetailProps) => {
         </div>
       )}
 
-      {/* <Separator className='my-8' /> */}
+      <div>
+        <div className='mt-6'>
+          <h2 className='text-2xl font-semibold mb-4'>Nội dung khóa học</h2>
+          <Accordion type='single' collapsible>
+            {course.lectureCourses.map((lecture, index) => (
+              <AccordionItem key={index} value={`lecture-${index}`}>
+                <AccordionTrigger className='p-4 border-b text-lg font-semibold'>{lecture.title}</AccordionTrigger>
+                <AccordionContent className='p-4 space-y-2'>
+                  {lecture.lessons.map((lesson, idx) => (
+                    <div key={idx} className='flex items-center space-x-3'>
+                      {lesson.contentType.map((type, typeIdx) => (
+                        <Badge key={typeIdx}>{type}</Badge>
+                      ))}
+                      <p>{lesson.title}</p>
+                    </div>
+                  ))}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </div>
 
       {/* Phần bình luận */}
       <div>
-        <h2 className='text-2xl font-semibold mb-4'>Bình luận</h2>
+        <h2 className='text-2xl font-semibold mb-4 mt-5'>Bình luận</h2>
 
-        {/* Form để tạo bình luận mới */}
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmitComment)} className='mb-6'>
             <FormField
