@@ -11,10 +11,9 @@ import { Loader } from 'lucide-react'
 
 interface CourseSidebarProps {
   course: IAdminCourse
-  userId: string
 }
 
-export const CourseSidebar = ({ course, userId }: CourseSidebarProps) => {
+export const CourseSidebar = ({ course }: CourseSidebarProps) => {
   const navigate = useNavigate()
   const { order, setOrder } = useOrderStore()
   const [orderId, setOrderId] = useState<string | null>(order?.id || null)
@@ -60,7 +59,7 @@ export const CourseSidebar = ({ course, userId }: CourseSidebarProps) => {
         })
       } else {
         createOrderMutation.mutate({
-          userId,
+          userId: user?.id!,
           totalAmount: Number(course.price),
           status: 'pending',
           orderItems: [{ productId: course.id, quantity: 1 }]

@@ -80,9 +80,9 @@ export const getCoursesAPI = async (params: GetCoursesParams) => {
 
   return response.data
 }
-export const getMe = async (): Promise<IBackendRes<IUserLogin>> => {
+export const getMe = async (): Promise<IBackendRes<IAdminUser>> => {
   const urlBackend = '/auth/me'
-  const response = await axios.get<IBackendRes<IUserLogin>>(urlBackend, {
+  const response = await axios.get<IBackendRes<IAdminUser>>(urlBackend, {
     headers: { delay: 1000 }
   })
   return response

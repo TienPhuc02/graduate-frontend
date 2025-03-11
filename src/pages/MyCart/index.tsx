@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+// import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Card, CardHeader, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 // import { deleteOrderItemAPI, fetchOrdersAPI } from '@/services/ApiService'
@@ -7,8 +7,8 @@ import { useOrderStore } from '@/stores/userOrderStore'
 import useAuthStore from '@/stores/authStore'
 
 const MyCart = () => {
-  const queryClient = useQueryClient()
-  const { order, setOrder } = useOrderStore()
+  // const queryClient = useQueryClient()
+  const { order } = useOrderStore()
   console.log('🚀 ~ MyCart ~ order:', order)
   const { user } = useAuthStore()
   console.log('🚀 ~ MyCart ~ user:', user)
