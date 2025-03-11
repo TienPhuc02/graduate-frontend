@@ -1,8 +1,6 @@
-import AllCourses from "@/components/pages/Courses"
+import AllCourses from '@/components/pages/Courses'
 
-type Props = {}
-
-const CoursesPage = (props: Props) => {
+const CoursesPage = () => {
   return (
     <div>
       <AllCourses />

@@ -10,10 +10,10 @@ import { useState } from 'react'
 import CustomPagination from '@/components/common/CustomPagination'
 import { CourseDetailSkeleton } from '../DetailCourse/CourseDetailSkeleton'
 
-interface Instructor {
-  firstName?: string
-  lastName?: string
-}
+// interface Instructor {
+//   firstName?: string
+//   lastName?: string
+// }
 
 interface SortOption {
   label: string

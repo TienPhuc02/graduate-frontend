@@ -2,7 +2,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import LogoIcon from '../common/icons/LogoIcon'
 import { Button } from '../ui/button'
 import { ModeToggle } from '../common/ModeToggle'
-import { useEffect } from 'react'
 import { animate } from 'framer-motion'
 const smoothScrollTo = (element: HTMLElement) => {
   const targetPosition = element.getBoundingClientRect().top + window.scrollY
