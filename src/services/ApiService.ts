@@ -1,4 +1,4 @@
-import createInstanceAxios from "./CustomizeService"
+import createInstanceAxios from './CustomizeService'
 
 const axios = createInstanceAxios(`${import.meta.env.VITE_BACKEND_URL}`)
 export const loginAPI = (email: string, password: string) => {
@@ -93,7 +93,13 @@ export const getCoursesAPI = async (params: GetCoursesParams) => {
 
   return response.data
 }
-
+export const getMe = async (): Promise<IBackendRes<ILogin>> => {
+  const urlBackend = '/auth/me'
+  const response = await axios.get<IBackendRes<ILogin>>(urlBackend, {
+    headers: { delay: 1000 }
+  })
+  return response
+}
 export const getCourseByIdAPI = async (idCourse: string) => {
   const urlBackend = `/course/${idCourse}`
   const response = await axios.get<IBackendRes<IAdminCourse>>(urlBackend)
