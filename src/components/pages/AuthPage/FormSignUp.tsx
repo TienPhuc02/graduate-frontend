@@ -1,9 +1,3 @@
-import { Button } from '@/components/ui/button'
-import { CardContent, CardFooter } from '@/components/ui/card'
-import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { registerAPI } from '@/services/ApiService'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { Eye, EyeOff } from 'lucide-react'
@@ -11,6 +5,12 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
+import { Form, FormControl, FormField, FormItem, FormMessage } from '../../ui/form'
+import { CardContent, CardFooter } from '../../ui/card'
+import { Label } from '../../ui/label'
+import { Button } from '../../ui/button'
+import { registerAPI } from '../../../services/ApiService'
+import { Input } from '../../ui/input'
 interface FormSignUpProps {
   onRegisterSuccess?: () => void
 }

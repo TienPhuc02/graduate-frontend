@@ -1,6 +1,6 @@
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import { Card, CardContent } from '@/components/ui/card'
 import { HelpCircle } from 'lucide-react'
+import { Card, CardContent } from '../../ui/card'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../../ui/accordion'
 
 const faqs = [
   {

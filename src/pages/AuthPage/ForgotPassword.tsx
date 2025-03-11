@@ -1,14 +1,14 @@
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
+import { Button } from '../../components/ui/button'
+import { Input } from '../../components/ui/input'
+import { Label } from '../../components/ui/label'
+import { Form, FormControl, FormField, FormItem, FormMessage } from '../../components/ui/form'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useNavigate } from 'react-router-dom'
-import { forgotPasswordAPI } from '@/services/ApiService'
+import { forgotPasswordAPI } from '../../services/ApiService'
 function ForgotPassword() {
   const navigate = useNavigate()
   const forgotPasswordSchema = z.object({

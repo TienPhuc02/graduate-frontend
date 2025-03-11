@@ -1,4 +1,4 @@
-import HeaderAuthPage from '@/components/layout/HeaderAuthPage'
+import HeaderAuthPage from '../../components/layout/HeaderAuthPage'
 import { Outlet } from 'react-router-dom'
 
 const AuthenticationPage = () => {

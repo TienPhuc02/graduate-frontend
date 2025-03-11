@@ -1,20 +1,23 @@
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Avatar, Rate } from 'antd'
-import { Separator } from '@/components/ui/separator'
+
 import { CourseDetailSkeleton } from './CourseDetailSkeleton'
-import { getCourseByIdAPI, createCommentAPI } from '@/services/ApiService'
+
 import { useQuery, useMutation } from '@tanstack/react-query'
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion'
-import { Input } from '@/components/ui/input'
-import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
+
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { useState } from 'react'
 import { formatDistanceToNow } from 'date-fns'
 import { vi } from 'date-fns/locale'
+import { createCommentAPI, getCourseByIdAPI } from '../../../services/ApiService'
+import { Button } from '../../ui/button'
+import { Form, FormControl, FormField, FormItem, FormMessage } from '../../ui/form'
+import { Input } from '../../ui/input'
+import { Badge } from '../../ui/badge'
+import { Card, CardContent, CardHeader } from '../../ui/card'
+import { Separator } from '../../ui/separator'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../../ui/accordion'
 
 interface CourseDetailProps {
   courseId: string

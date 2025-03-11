@@ -1,4 +1,4 @@
-import { CourseDetail } from '@/components/pages/DetailCourse'
+import { CourseDetail } from '../../components/pages/DetailCourse'
 import { useParams } from 'react-router-dom'
 
 const CourseDetailPage = () => {

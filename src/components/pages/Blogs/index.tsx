@@ -1,15 +1,17 @@
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useQuery } from '@tanstack/react-query'
 import { Image } from 'antd'
-import { getBlogsAPI } from '@/services/ApiService'
+
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import CustomPagination from '@/components/common/CustomPagination'
-import { ECourseCategory, EBlogStatus } from '@/types/enum'
+
 import { CourseDetailSkeleton } from '../DetailCourse/CourseDetailSkeleton'
+import { EBlogStatus, ECourseCategory } from '../../../types/enum'
+import { getBlogsAPI } from '../../../services/ApiService'
+import { Input } from '../../ui/input'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select'
+import { Button } from '../../ui/button'
+import { Card, CardContent } from '../../ui/card'
+import CustomPagination from '../../common/CustomPagination'
 
 // interface Author {
 //   firstName?: string

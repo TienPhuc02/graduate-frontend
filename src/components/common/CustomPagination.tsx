@@ -1,6 +1,5 @@
-import React from 'react'
 import ReactPaginate from 'react-paginate'
-import { Button } from '@/components/ui/button'
+import { Button } from '../../components/ui/button'
 
 interface PaginationProps {
   currentPage: number

@@ -1,7 +1,7 @@
-import CardAnimate from '@/components/ui/card-animate'
-import { TextAnimate } from '@/components/ui/text-animate'
-import { BENEFITS } from '@/constants'
 import { motion } from 'framer-motion'
+import { TextAnimate } from '../../ui/text-animate'
+import { BENEFITS } from '../../../constants'
+import CardAnimate from '../../ui/card-animate'
 const container = {
   hidden: { opacity: 1, scale: 0 },
   visible: {

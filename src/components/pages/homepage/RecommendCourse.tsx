@@ -1,10 +1,12 @@
-import { TextAnimate } from '@/components/ui/text-animate'
-import { Card, CardContent } from '@/components/ui/card'
+
 import { useQuery } from '@tanstack/react-query'
 import { Image } from 'antd'
 import { ArrowRight } from 'lucide-react'
-import { getCoursesAPI } from '@/services/ApiService'
+
 import { Link, useNavigate } from 'react-router-dom'
+import { getCoursesAPI } from '../../../services/ApiService'
+import { TextAnimate } from '../../ui/text-animate'
+import { Card, CardContent } from '../../ui/card'
 
 const RecommendCourse = () => {
   const navigate = useNavigate()

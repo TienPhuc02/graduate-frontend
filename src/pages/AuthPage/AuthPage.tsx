@@ -1,8 +1,8 @@
-import LogoIcon from '@/components/common/icons/LogoIcon'
-import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import FormSignIn from '@/components/pages/AuthPage/FormSignIn'
-import FormSignUp from '@/components/pages/AuthPage/FormSignUp'
+import LogoIcon from '../../components/common/icons/LogoIcon'
+import { Card, CardContent, CardDescription, CardHeader } from '../../components/ui/card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs'
+import FormSignIn from '../../components/pages/AuthPage/FormSignIn'
+import FormSignUp from '../../components/pages/AuthPage/FormSignUp'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 

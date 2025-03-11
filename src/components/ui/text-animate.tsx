@@ -1,6 +1,6 @@
 import { FC, useRef } from 'react'
 import { HTMLMotionProps, motion } from 'motion/react'
-import { cn } from '@/lib/utils'
+import { cn } from '../../lib/utils'
 
 type AnimationType = 'fadeIn' | 'fadeInUp' | 'popIn' | 'shiftInUp' | 'rollIn' | 'whipIn' | 'whipInUp' | 'calmInUp'
 

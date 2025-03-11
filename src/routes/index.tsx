@@ -1,14 +1,14 @@
-import WrapperApp from '@/components/pages/WrapperApp'
-import AuthenticationPage from '@/pages/AuthPage'
-import AuthPage from '@/pages/AuthPage/AuthPage'
-import AuthSuccess from '@/pages/AuthPage/AuthSuccess'
-import ForgotPassword from '@/pages/AuthPage/ForgotPassword'
-import ResetForgotPassword from '@/pages/AuthPage/ResetForgotPassword'
-import BlogsPage from '@/pages/Blogs'
-import CoursesPage from '@/pages/Courses'
-import CourseDetail from '@/pages/DetailCourse'
-import HomePage from '@/pages/HomePage'
 import { createBrowserRouter } from 'react-router-dom'
+import WrapperApp from '../components/pages/WrapperApp'
+import HomePage from '../pages/HomePage'
+import CoursesPage from '../pages/Courses'
+import BlogsPage from '../pages/Blogs'
+import AuthenticationPage from '../pages/AuthPage'
+import AuthPage from '../pages/AuthPage/AuthPage'
+import AuthSuccess from '../pages/AuthPage/AuthSuccess'
+import ForgotPassword from '../pages/AuthPage/ForgotPassword'
+import ResetForgotPassword from '../pages/AuthPage/ResetForgotPassword'
+import CourseDetailPage from '../pages/DetailCourse'
 
 const router = createBrowserRouter([
   {
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
         path: '/course/:id',
         element: (
           <>
-            <CourseDetail />
+            <CourseDetailPage />
           </>
         )
       }
