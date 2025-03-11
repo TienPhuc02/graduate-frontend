@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { Image } from 'antd'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Loader } from 'lucide-react'
 
 import { Link, useNavigate } from 'react-router-dom'
 import { getCoursesAPI } from '../../../services/ApiService'
@@ -19,7 +19,12 @@ const RecommendCourse = () => {
     queryFn: () => getCoursesAPI({ page: 1, pageSize: 3, status: ECourseStatus.ACTIVE })
   })
 
-  if (isLoading) return <p>Loading...</p>
+  if (isLoading)
+    return (
+      <p>
+        <Loader className='w-8 h-8 animate-spin' />.
+      </p>
+    )
   if (error) return <p>Error fetching courses: {error.message}</p>
 
   return (

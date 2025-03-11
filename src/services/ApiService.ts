@@ -13,6 +13,15 @@ export const loginAPI = (email: string, password: string) => {
     }
   )
 }
+export const logoutAPI = () => {
+  const urlBackend = '/auth/logout'
+  return axios.post<IBackendRes<any>>(urlBackend, {
+    headers: {
+      delay: 1000
+    }
+  })
+}
+
 export const registerAPI = (data: IRegisterUserDTO) => {
   const urlBackend = '/auth/register'
   return axios.post<IBackendRes<any>>(urlBackend, data, {
@@ -56,25 +65,6 @@ export const updatePasswordAPI = ({
       }
     }
   )
-}
-
-//course
-
-interface GetCoursesParams {
-  page: number
-  pageSize: number
-  title?: string
-  status?: string
-  category?: string
-  sort?: string
-}
-interface GetBlogsParams {
-  page: number
-  pageSize: number
-  title?: string
-  isPublished?: string
-  categoryBlog?: string
-  sort?: string
 }
 
 export const getCoursesAPI = async (params: GetCoursesParams) => {

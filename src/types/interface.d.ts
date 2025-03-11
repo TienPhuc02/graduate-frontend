@@ -148,6 +148,22 @@ declare global {
     isDeleted: boolean
     deletedAt?: Date | null
   }
+  export interface GetCoursesParams {
+    page: number
+    pageSize: number
+    title?: string
+    status?: string
+    category?: string
+    sort?: string
+  }
+  export interface GetBlogsParams {
+    page: number
+    pageSize: number
+    title?: string
+    isPublished?: string
+    categoryBlog?: string
+    sort?: string
+  }
   export interface IAdminLesson {
     id: string
     lectureCourse: IAdminLecture

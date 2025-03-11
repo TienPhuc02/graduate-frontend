@@ -7,6 +7,7 @@ import { animate } from 'framer-motion'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu'
 import useAuthStore from '../../stores/authStore'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
+import { logoutAPI } from '../../services/ApiService'
 
 const smoothScrollTo = (element: HTMLElement) => {
   const targetPosition = element.getBoundingClientRect().top + window.scrollY
@@ -37,7 +38,20 @@ const HeaderHomePage = () => {
       if (section) smoothScrollTo(section)
     }
   }
+  const handleLogout = async () => {
+    try {
+      await logoutAPI()
 
+      logout()
+      localStorage.removeItem('access_token')
+      navigate('/')
+    } catch (error) {
+      console.error('Logout failed:', error)
+      logout()
+      localStorage.removeItem('access_token')
+      navigate('/')
+    }
+  }
   const navLinks = [
     { name: 'Trang Chủ', path: '/' },
     { name: 'Giới Thiệu', path: '#' },
@@ -52,13 +66,11 @@ const HeaderHomePage = () => {
   return (
     <div className='border-b w-full fixed dark:bg-black z-50 bg-white'>
       <div className='container mx-auto h-[60px] flex items-center justify-between'>
-        {/* Logo */}
         <Link to='/' className='flex gap-[10px] items-center justify-center cursor-pointer'>
           <LogoIcon className='h-6 w-6' />
           <span className='font-medium text-2xl'>EduGo</span>
         </Link>
 
-        {/* Navbar */}
         <nav>
           <div className='ml-auto flex gap-2'>
             {navLinks.map(({ name, path }) =>
@@ -94,7 +106,7 @@ const HeaderHomePage = () => {
                   <DropdownMenuItem asChild>
                     <Link to='/cart'>Giỏ hàng</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={logout} className='text-red-500'>
+                  <DropdownMenuItem onClick={handleLogout} className='text-red-500'>
                     Đăng xuất
                   </DropdownMenuItem>
                 </DropdownMenuContent>
