@@ -93,13 +93,10 @@ const AllCourses: React.FC = () => {
   if (error) return <p>Error fetching courses: {error.message}</p>
 
   const courses: IAdminCourse[] = coursesData?.results || []
-  console.log('🚀 ~ courses:', courses)
   const totalCourses: number = coursesData?.meta?.totalCourses || 0
-  console.log('🚀 ~ totalCourses:', totalCourses)
 
   return (
     <div className='container mx-auto pt-[100px]'>
-      {/* Thanh tìm kiếm và các bộ lọc */}
       <div className='mb-6'>
         <div className='flex flex-col sm:flex-row gap-4 justify-center'>
           <Input
@@ -109,7 +106,6 @@ const AllCourses: React.FC = () => {
             className='max-w-md dark:bg-neutral-800 dark:text-white dark:border-gray-700'
           />
 
-          {/* Bộ lọc trạng thái */}
           <Select onValueChange={handleStatusChange} value={status}>
             <SelectTrigger className='w-[180px] dark:bg-neutral-800 dark:text-white dark:border-gray-700'>
               <SelectValue placeholder='Trạng thái' />
@@ -123,7 +119,6 @@ const AllCourses: React.FC = () => {
             </SelectContent>
           </Select>
 
-          {/* Sắp xếp */}
           <Select onValueChange={handleSortChange} value={sort}>
             <SelectTrigger className='w-[180px] dark:bg-neutral-800 dark:text-white dark:border-gray-700'>
               <SelectValue placeholder='Sắp xếp' />

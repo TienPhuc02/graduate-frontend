@@ -68,7 +68,6 @@ export const updatePasswordAPI = ({
 }
 
 export const getCoursesAPI = async (params: GetCoursesParams) => {
-  console.log('🚀 ~ getCoursesAPI ~ params:', params)
 
   const query = new URLSearchParams()
 
@@ -79,7 +78,6 @@ export const getCoursesAPI = async (params: GetCoursesParams) => {
   const urlBackend = `/course?${query.toString()}`
   const response = await axios.get<IBackendRes<IModelPaginate<IAdminCourse>>>(urlBackend)
 
-  console.log('🚀 ~ getCoursesAPI ~ response:', response)
 
   return response.data
 }
@@ -93,11 +91,9 @@ export const getMe = async (): Promise<IBackendRes<IUserLogin>> => {
 export const getCourseByIdAPI = async (idCourse: string) => {
   const urlBackend = `/course/${idCourse}`
   const response = await axios.get<IBackendRes<IAdminCourse>>(urlBackend)
-  console.log('🚀 ~ getCourseByIdAPI ~ response:', response)
   return response.data
 }
 export const getBlogsAPI = async (params: GetBlogsParams) => {
-  console.log('🚀 ~ getCoursesAPI ~ params:', params)
 
   const query = new URLSearchParams()
 
@@ -108,7 +104,6 @@ export const getBlogsAPI = async (params: GetBlogsParams) => {
   const urlBackend = `/blog?${query.toString()}`
   const response = await axios.get<IBackendRes<IModelPaginate<IAdminBlog>>>(urlBackend)
 
-  console.log('🚀 ~ getCoursesAPI ~ response:', response)
 
   return response.data
 }

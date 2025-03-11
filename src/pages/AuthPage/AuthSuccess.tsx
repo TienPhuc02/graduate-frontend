@@ -1,8 +1,34 @@
+import { useSearchParams } from 'react-router-dom'
 import { Button } from '../../components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card'
 import { CheckCircle2 } from 'lucide-react'
+import { useEffect } from 'react'
+import useAuthStore from '../../stores/authStore'
+import { getMe } from '../../services/ApiService'
+import { toast } from 'sonner'
 
 function AuthSuccess() {
+  const [searchParams] = useSearchParams()
+  const setUser = useAuthStore((state) => state.setUser)
+
+  useEffect(() => {
+    const token = searchParams.get('token')
+    if (token) {
+      localStorage.setItem('access_token', token)
+
+      getMe()
+        .then((res) => {
+          if (res?.data) {
+            setUser(res.data)
+          }
+        })
+        .catch(() => {
+          toast('❌ Đăng nhập thất bại!', {
+            description: 'Lỗi khi lấy thông tin người dùng!'
+          })
+        })
+    }
+  }, [searchParams, setUser])
   return (
     <div className='min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900'>
       <Card className='w-full max-w-md p-6'>
