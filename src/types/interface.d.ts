@@ -43,14 +43,14 @@ declare global {
   export interface IAdminUser {
     id: string
     role: ETypeUser
-    firstName?: string
-    lastName?: string
+    firstName: string
+    lastName: string
     email?: string
     password?: string
     phoneNumber?: number
     address?: string
     isVerified: boolean
-
+    orders: IAdminOrderItem[]
     profilePicture?: string
     resetPasswordToken?: string
     resetPasswordExpires?: Date
@@ -209,6 +209,7 @@ declare global {
     order: IAdminOrder
     course: IAdminCourse
     courseId: string
+    totalAmount: number
     price: number
     quantity?: number
     createdAt: string

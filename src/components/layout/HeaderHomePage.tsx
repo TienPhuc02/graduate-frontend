@@ -102,7 +102,7 @@ const HeaderHomePage = () => {
                 <DropdownMenuTrigger>
                   <Avatar>
                     <AvatarImage src={user.profilePicture || 'https://i.pravatar.cc/150'} alt={user.firstName} />
-                    <AvatarFallback>{user.firstName.charAt(0) + user.lastName.charAt(0)}</AvatarFallback>
+                    <AvatarFallback>{user?.firstName.charAt(0) + user?.lastName.charAt(0)}</AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align='end'>
@@ -113,7 +113,7 @@ const HeaderHomePage = () => {
                     <Link to='/my-cart'>Giỏ hàng</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link to='/my-course'>Giỏ hàng</Link>
+                    <Link to='/my-course'>Khóa học của tôi</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={handleLogout} className='text-red-500'>
                     Đăng xuất

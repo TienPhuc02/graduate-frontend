@@ -9,6 +9,7 @@ import AuthSuccess from '../pages/AuthPage/AuthSuccess'
 import ForgotPassword from '../pages/AuthPage/ForgotPassword'
 import ResetForgotPassword from '../pages/AuthPage/ResetForgotPassword'
 import CourseDetailPage from '../pages/DetailCourse'
+import MyCart from '@/pages/MyCart'
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,14 @@ const router = createBrowserRouter([
         element: (
           <>
             <CourseDetailPage />
+          </>
+        )
+      },
+      {
+        path: '/my-cart',
+        element: (
+          <>
+            <MyCart />
           </>
         )
       }

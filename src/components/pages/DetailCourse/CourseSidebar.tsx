@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom'
 import { Avatar } from 'antd'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { useOrderStore } from '@/stores/userorderStore'
 import { createOrderAPI, createOrderItemAPI } from '@/services/ApiService'
 import useAuthStore from '@/stores/authStore'
+import { useOrderStore } from '@/stores/userOrderStore'
 
 interface CourseSidebarProps {
   course: IAdminCourse
@@ -36,10 +36,13 @@ export const CourseSidebar = ({ course, userId }: CourseSidebarProps) => {
   const createOrderItemMutation = useMutation({
     mutationFn: (data: ICreateOrderItemDTO) => createOrderItemAPI(data),
     onSuccess: (data) => {
-      setOrder((prev) => ({
-        ...prev!,
-        orderItems: [...(prev?.orderItems || []), data]
-      }))
+      setOrder((prev) => {
+        if (!prev) return prev as unknown as IAdminOrder
+        return {
+          ...prev,
+          orderItems: [...(prev.orderItems || []), data]
+        }
+      })
     }
   })
 

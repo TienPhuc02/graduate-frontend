@@ -1,12 +1,12 @@
 import { create } from 'zustand'
 
-interface AuthState {
-  user: IUserLogin | null
-  setUser: (user: IUserLogin | null) => void
+interface UserState {
+  user: IAdminUser | null
+  setUser: (user: IAdminUser | null) => void
   logout: () => void
 }
 
-const useAuthStore = create<AuthState>((set) => ({
+const useAuthStore = create<UserState>((set) => ({
   user: null,
   setUser: (user) => set({ user }),
   logout: () => set({ user: null })
