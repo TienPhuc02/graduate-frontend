@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { createOrderAPI, createOrderItemAPI } from '@/services/ApiService'
 import useAuthStore from '@/stores/authStore'
 import { useOrderStore } from '@/stores/userOrderStore'
+import { Loader } from 'lucide-react'
 
 interface CourseSidebarProps {
   course: IAdminCourse
@@ -18,7 +19,8 @@ export const CourseSidebar = ({ course, userId }: CourseSidebarProps) => {
   const { order, setOrder } = useOrderStore()
   const [orderId, setOrderId] = useState<string | null>(order?.id || null)
   const { user } = useAuthStore()
-  const isRegistered = (order?.orderItems ?? []).some((item) => item.courseId === course.id)
+  const isRegistered = order?.orderItems?.some((item) => item.courseId === course.id) ?? false
+  console.log('🚀 ~ CourseSidebar ~ isRegistered:', isRegistered)
 
   const createOrderMutation = useMutation({
     mutationFn: (data: ICreateOrderDTO) => createOrderAPI({ ...data, userId: user?.id! }),
@@ -94,11 +96,13 @@ export const CourseSidebar = ({ course, userId }: CourseSidebarProps) => {
             onClick={handleRegister}
             disabled={createOrderMutation.status === 'pending' || createOrderItemMutation.status === 'pending'}
           >
-            {createOrderMutation.status === 'pending' || createOrderItemMutation.status === 'pending'
-              ? 'Đang xử lý...'
-              : isRegistered
-                ? 'Đi tới giỏ hàng'
-                : 'Đăng ký ngay'}
+            {createOrderMutation.status === 'pending' || createOrderItemMutation.status === 'pending' ? (
+              <Loader className='w-2 h-2 animate-spin' />
+            ) : isRegistered ? (
+              'Đi tới giỏ hàng'
+            ) : (
+              'Đăng ký ngay'
+            )}
           </Button>
         </CardContent>
       </Card>

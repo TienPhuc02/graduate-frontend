@@ -40,38 +40,37 @@ const MyCart = () => {
       <h1 className='text-2xl font-semibold mb-4'>🛒 My Cart</h1>
 
       <div className='space-y-4'>
-        {user?.orders?.map((orderItem) => (
-          <Card key={orderItem.id} className='relative'>
-            <CardHeader>
-              <p className='text-lg font-medium'>Order #{orderItem.id}</p>
-            </CardHeader>
-            <CardContent className='flex justify-between items-center'>
-              <div>
-                {/* <p className='text-sm text-gray-600'>
-                  Status: <span className='font-medium'>{orderItem.status}</span>
-                </p> */}
-                <p className='text-sm text-gray-600'>
-                  Total:
-                  <span className='text-red-500 font-medium ml-1'>
-                    {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(
-                      Number(orderItem.totalAmount)
-                    )}
-                  </span>
-                </p>
-                <p className='text-xs text-gray-400'>Created: {new Date(orderItem.createdAt).toLocaleString()}</p>
-              </div>
-              <div className='flex gap-2'>
-                <Button
-                  variant='destructive'
-                  size='sm'
-                  // onClick={() => deleteMutation.mutate(order.id)}
-                >
-                  Remove
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+        {user?.orders
+          ?.filter((orderItem) => !orderItem.isDeleted)
+          .map((orderItem) => (
+            <Card key={orderItem.id} className='relative'>
+              <CardHeader>
+                <p className='text-lg font-medium'>Order #{orderItem.id}</p>
+              </CardHeader>
+              <CardContent className='flex justify-between items-center'>
+                <div>
+                  <p className='text-sm text-gray-600'>
+                    Total:
+                    <span className='text-red-500 font-medium ml-1'>
+                      {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(
+                        Number(orderItem.totalAmount)
+                      )}
+                    </span>
+                  </p>
+                  <p className='text-xs text-gray-400'>Created: {new Date(orderItem.createdAt).toLocaleString()}</p>
+                </div>
+                <div className='flex gap-2'>
+                  <Button
+                    variant='destructive'
+                    size='sm'
+                    // onClick={() => deleteMutation.mutate(order.id)}
+                  >
+                    Remove
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
       </div>
 
       <div className='mt-6 flex justify-end'>

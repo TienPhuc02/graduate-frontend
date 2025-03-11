@@ -211,6 +211,7 @@ declare global {
     courseId: string
     totalAmount: number
     price: number
+    isDeleted: boolean
     quantity?: number
     createdAt: string
     updatedAt: string
