@@ -8,7 +8,7 @@
     "skipLibCheck": true,
 
     /* Bundler mode */
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
@@ -21,11 +21,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
-    // "baseUrl": ".",
-    // "paths": {
-    //   "../../*": ["./src/*"]
-    // }
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  }
+  // "include": ["src/**/*"],
+  // "exclude": ["node_modules"]
 }
