@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import React from 'react'
 import { useAuthQuery } from '../../hooks/useAuthquery'
 

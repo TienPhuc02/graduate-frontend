@@ -1,4 +1,3 @@
-
 import { useQuery } from '@tanstack/react-query'
 import { Image } from 'antd'
 import { ArrowRight } from 'lucide-react'
@@ -7,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { getCoursesAPI } from '../../../services/ApiService'
 import { TextAnimate } from '../../ui/text-animate'
 import { Card, CardContent } from '../../ui/card'
+import { ECourseStatus } from '../../../types/enum'
 
 const RecommendCourse = () => {
   const navigate = useNavigate()
@@ -16,7 +16,7 @@ const RecommendCourse = () => {
     error
   } = useQuery({
     queryKey: ['getRecommendCourses'],
-    queryFn: () => getCoursesAPI({ page: 1, pageSize: 3 })
+    queryFn: () => getCoursesAPI({ page: 1, pageSize: 3, status: ECourseStatus.ACTIVE })
   })
 
   if (isLoading) return <p>Loading...</p>
