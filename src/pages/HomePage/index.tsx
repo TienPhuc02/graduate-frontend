@@ -1,77 +1,82 @@
-import { motion } from 'framer-motion'
+// import { motion } from 'framer-motion'
 
-import { useQuery } from '@tanstack/react-query'
-import { Image } from 'antd'
-import { ArrowRight, HelpCircle } from 'lucide-react'
+import Benefits from "../../components/pages/HomePage/benefits"
+import FAQ from "../../components/pages/HomePage/faq"
+import Hero from "../../components/pages/HomePage/hero"
+import RecommendCourse from "../../components/pages/HomePage/recommendCourse"
 
-import { Link, useNavigate } from 'react-router-dom'
-import Marquee from 'react-fast-marquee'
-import Microsoft from '../../components/common/icons/Microsoft'
-import AmazonWebServices from '../../components/common/icons/AWSIcon'
-import Appwrite from '../../components/common/icons/AppWriteIcon'
-import Docker from '../../components/common/icons/DockerIcon'
-import GmailIcon from '../../components/common/icons/GmailIcon'
-import GoogleIcon from '../../components/common/icons/GoogleIcon'
-import Linux from '../../components/common/icons/LinuxIcon'
-import IntelliJIDEA from '../../components/common/icons/IntelliJIcon'
-import DeveloperStudentClub from '../../components/common/icons/GoogleDeveloperClubIcon'
-import Notion from '../../components/common/icons/NotionIcon'
-import MetaMask from '../../components/common/icons/MetaMaskIcon'
-import PostgreSQL from '../../components/common/icons/PostgreIcon'
-import Adobe from '../../components/common/icons/AdobeIcon'
-import Figma from '../../components/common/icons/Figma'
-import { Input } from '../../components/ui/input'
-import { TextAnimate } from '../../components/ui/text-animate'
-import { Card, CardContent } from '../../components/ui/card'
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../../components/ui/accordion'
-import { BENEFITS } from '../../constants'
-import CardAnimate from '../../components/ui/card-animate'
-import Photoshop from '../../components/common/icons/PhotoshopIcon'
-import { Button } from '../../components/ui/button'
-import { getCoursesAPI } from '../../services/ApiService'
-const faqs = [
-  {
-    question: 'Làm thế nào để đăng ký khóa học?',
-    answer:
-      "Bạn có thể đăng ký khóa học bằng cách nhấn vào nút 'Đăng ký' trên trang chi tiết khóa học và làm theo hướng dẫn."
-  },
-  {
-    question: 'Có thể học offline không?',
-    answer: 'Các khóa học chủ yếu là online, tuy nhiên một số nội dung có thể tải xuống để học offline.'
-  },
-  {
-    question: 'Tôi có thể nhận chứng chỉ sau khi hoàn thành khóa học không?',
-    answer: 'Có! Sau khi hoàn thành tất cả bài giảng và bài kiểm tra, bạn sẽ nhận được chứng chỉ.'
-  }
-]
+// import { useQuery } from '@tanstack/react-query'
+// import { Image } from 'antd'
+// import { ArrowRight, HelpCircle } from 'lucide-react'
 
-const container = {
-  hidden: { opacity: 1, scale: 0 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      delayChildren: 0.3,
-      staggerChildren: 0.2
-    }
-  }
-}
+// import { Link, useNavigate } from 'react-router-dom'
+// import Marquee from 'react-fast-marquee'
+// import Microsoft from '../../components/common/icons/Microsoft'
+// import AmazonWebServices from '../../components/common/icons/AWSIcon'
+// import Appwrite from '../../components/common/icons/AppWriteIcon'
+// import Docker from '../../components/common/icons/DockerIcon'
+// import GmailIcon from '../../components/common/icons/GmailIcon'
+// import GoogleIcon from '../../components/common/icons/GoogleIcon'
+// import Linux from '../../components/common/icons/LinuxIcon'
+// import IntelliJIDEA from '../../components/common/icons/IntelliJIcon'
+// import DeveloperStudentClub from '../../components/common/icons/GoogleDeveloperClubIcon'
+// import Notion from '../../components/common/icons/NotionIcon'
+// import MetaMask from '../../components/common/icons/MetaMaskIcon'
+// import PostgreSQL from '../../components/common/icons/PostgreIcon'
+// import Adobe from '../../components/common/icons/AdobeIcon'
+// import Figma from '../../components/common/icons/Figma'
+// import { Input } from '../../components/ui/input'
+// import { TextAnimate } from '../../components/ui/text-animate'
+// import { Card, CardContent } from '../../components/ui/card'
+// import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../../components/ui/accordion'
+// import { BENEFITS } from '../../constants'
+// import CardAnimate from '../../components/ui/card-animate'
+// import Photoshop from '../../components/common/icons/PhotoshopIcon'
+// import { Button } from '../../components/ui/button'
+// import { getCoursesAPI } from '../../services/ApiService'
+// const faqs = [
+//   {
+//     question: 'Làm thế nào để đăng ký khóa học?',
+//     answer:
+//       "Bạn có thể đăng ký khóa học bằng cách nhấn vào nút 'Đăng ký' trên trang chi tiết khóa học và làm theo hướng dẫn."
+//   },
+//   {
+//     question: 'Có thể học offline không?',
+//     answer: 'Các khóa học chủ yếu là online, tuy nhiên một số nội dung có thể tải xuống để học offline.'
+//   },
+//   {
+//     question: 'Tôi có thể nhận chứng chỉ sau khi hoàn thành khóa học không?',
+//     answer: 'Có! Sau khi hoàn thành tất cả bài giảng và bài kiểm tra, bạn sẽ nhận được chứng chỉ.'
+//   }
+// ]
+
+// const container = {
+//   hidden: { opacity: 1, scale: 0 },
+//   visible: {
+//     opacity: 1,
+//     scale: 1,
+//     transition: {
+//       delayChildren: 0.3,
+//       staggerChildren: 0.2
+//     }
+//   }
+// }
 const HomePage = () => {
-  const navigate = useNavigate()
-  const {
-    data: courses,
-    isLoading,
-    error
-  } = useQuery({
-    queryKey: ['getRecommendCourses'],
-    queryFn: () => getCoursesAPI({ page: 1, pageSize: 3 })
-  })
+  //   const navigate = useNavigate()
+  //   const {
+  //     data: courses,
+  //     isLoading,
+  //     error
+  //   } = useQuery({
+  //     queryKey: ['getRecommendCourses'],
+  //     queryFn: () => getCoursesAPI({ page: 1, pageSize: 3 })
+  //   })
 
-  if (isLoading) return <p>Loading...</p>
-  if (error) return <p>Error fetching courses: {error.message}</p>
+  //   if (isLoading) return <p>Loading...</p>
+  //   if (error) return <p>Error fetching courses: {error.message}</p>
   return (
     <>
-      <div className='container mx-auto pb-[200px]'>
+      {/* <div className='container mx-auto pb-[200px]'>
         <div className='w-full flex flex-col items-center justify-center px-4'>
           <div className='max-w-8xl mx-auto text-center space-y-8 pt-[100px]'>
             <div className='text-4xl md:text-5xl lg:text-6xl font-bold mx-auto'>
@@ -201,12 +206,11 @@ const HomePage = () => {
               </CardContent>
             </Card>
           </div>
-        </section>
-        {/* <Hero />
-        <Benefits />
-        <RecommendCourse />
-        <FAQ /> */}
-      </div>
+        </section> */}
+      <Hero />
+      <Benefits />
+      <RecommendCourse />
+      <FAQ />
     </>
   )
 }
