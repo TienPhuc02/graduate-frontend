@@ -1,6 +1,6 @@
 import RecommendCourse from '../../components/pages/HomePage/RecommendCourse'
 import Hero from '../../components/pages/HomePage/Hero'
-import Benefits from '../../components/pages/HomePage/RecommendCourse'
+import Benefits from '../../components/pages/HomePage/Benefits'
 import FAQ from '../../components/pages/HomePage/FAQ'
 
 const HomePage = () => {
