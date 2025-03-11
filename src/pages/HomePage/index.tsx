@@ -5,14 +5,12 @@ import RecommendCourse from '../../components/pages/homepage/RecommendCourse'
 
 const HomePage = () => {
   return (
-    <>
-      <div className='container'>
-        <Hero />
-        <Benefits />
-        <RecommendCourse />
-        <FAQ />
-      </div>
-    </>
+    <div className='container'>
+      <Hero />
+      <Benefits />
+      <RecommendCourse />
+      <FAQ />
+    </div>
   )
 }
 

@@ -11,13 +11,14 @@ export const useAuthQuery = () => {
     queryFn: getMe,
     retry: false
   })
+  console.log('🚀 ~ useAuthQuery ~ queryResult:', queryResult)
 
   useEffect(() => {
-    if (queryResult.data) {
-      console.log('🚀 ~ useAuthQuery ~ data:', queryResult.data.data.user)
-      setUser(queryResult.data.data.user)
+    if (queryResult.data && queryResult.data.data) {
+      console.log('🚀 ~ useAuthQuery ~ data:', queryResult.data.data)
+      setUser(queryResult?.data?.data)
     }
-  }, [queryResult.data])
+  }, [queryResult?.data?.data])
 
   useEffect(() => {
     if (queryResult.error) {
