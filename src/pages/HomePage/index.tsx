@@ -1,9 +1,9 @@
 // import { motion } from 'framer-motion'
 
-import Benefits from "../../components/pages/HomePage/benefits"
-import FAQ from "../../components/pages/HomePage/faq"
-import Hero from "../../components/pages/HomePage/hero"
-import RecommendCourse from "../../components/pages/HomePage/recommendCourse"
+import Benefits from "../../components/pages/homepage/benefits"
+import FAQ from "../../components/pages/homepage/faq"
+import Hero from "../../components/pages/homepage/hero"
+import RecommendCourse from "../../components/pages/homepage/recommendCourse"
 
 // import { useQuery } from '@tanstack/react-query'
 // import { Image } from 'antd'
