@@ -1,7 +1,7 @@
-import RecommendCourse from '../../components/pages/HomePage/RecommendCourse'
-import Hero from '../../components/pages/HomePage/Hero'
-import Benefits from '../../components/pages/HomePage/Benefits'
-import FAQ from '../../components/pages/HomePage/FAQ'
+import RecommendCourse from '@/components/pages/HomePage/RecommendCourse.tsx'
+import Hero from '@/components/pages/HomePage/Hero.tsx'
+import Benefits from '@/components/pages/HomePage/Benefits.tsx'
+import FAQ from '@/components/pages/HomePage/FAQ.tsx'
 
 const HomePage = () => {
   return (
