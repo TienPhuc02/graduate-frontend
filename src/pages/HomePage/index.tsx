@@ -1,7 +1,7 @@
-import Benefits from "@/components/pages/HomePage/Benefits"
-import FAQSection from "@/components/pages/HomePage/FAQ"
-import Hero from "@/components/pages/HomePage/Hero"
-import RecommendCourse from "@/components/pages/HomePage/RecommendCourse"
+import RecommendCourse from '../../components/pages/HomePage/RecommendCourse'
+import Hero from '../../components/pages/HomePage/Hero'
+import Benefits from '../../components/pages/HomePage/RecommendCourse'
+import FAQ from '../../components/pages/HomePage/FAQ'
 
 const HomePage = () => {
   return (
@@ -10,7 +10,7 @@ const HomePage = () => {
         <Hero />
         <Benefits />
         <RecommendCourse />
-        <FAQSection />
+        <FAQ />
       </div>
     </>
   )
