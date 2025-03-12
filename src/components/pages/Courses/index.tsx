@@ -1,21 +1,16 @@
 import { useQuery } from '@tanstack/react-query'
 import { Image } from 'antd'
-
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-
-import { CourseDetailSkeleton } from '../DetailCourse/CourseDetailSkeleton'
+// import { CourseDetailSkeleton } from '../DetailCourse/CourseDetailSkeleton'
 import { getCoursesAPI } from '../../../services/ApiService'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select'
 import { Input } from '../../ui/input'
 import { Button } from '../../ui/button'
 import { Card, CardContent } from '../../ui/card'
 import CustomPagination from '../../common/CustomPagination'
-
-// interface Instructor {
-//   firstName?: string
-//   lastName?: string
-// }
+import { Loader } from 'lucide-react'
+import { Label } from '../../ui/label'
 
 interface SortOption {
   label: string
@@ -27,10 +22,14 @@ const AllCourses: React.FC = () => {
 
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const [pageSize] = useState<number>(1)
+  const [pageSize] = useState<number>(10)
   const [selectedCategory, setSelectedCategory] = useState<string>('')
   const [status, setStatus] = useState<string>('')
   const [sort, setSort] = useState<string>('')
+  const [minPrice, setMinPrice] = useState<string>('')
+  const [maxPrice, setMaxPrice] = useState<string>('')
+  const [startDate, setStartDate] = useState<string>('')
+  const [endDate, setEndDate] = useState<string>('')
 
   const categories: string[] = ['All', 'Frontend', 'Backend', 'Fullstack', 'DevOps', 'AI & Machine Learning']
   const statuses: string[] = ['All', 'active', 'inactive']
@@ -46,7 +45,18 @@ const AllCourses: React.FC = () => {
     isLoading,
     error
   } = useQuery({
-    queryKey: ['getAllCourses', searchQuery, selectedCategory, status, currentPage] as const,
+    queryKey: [
+      'getAllCourses',
+      searchQuery,
+      selectedCategory,
+      status,
+      minPrice,
+      maxPrice,
+      startDate,
+      endDate,
+      sort,
+      currentPage
+    ] as const,
     queryFn: () =>
       getCoursesAPI({
         page: currentPage,
@@ -54,6 +64,10 @@ const AllCourses: React.FC = () => {
         title: searchQuery || undefined,
         status: status !== 'All' ? status : undefined,
         category: selectedCategory !== 'All' ? selectedCategory : undefined,
+        minPrice: minPrice ? Number(minPrice) : undefined,
+        maxPrice: maxPrice ? Number(maxPrice) : undefined,
+        startDate: startDate || undefined,
+        endDate: endDate || undefined,
         sort: sort || undefined
       })
   })
@@ -73,23 +87,29 @@ const AllCourses: React.FC = () => {
     setCurrentPage(1)
   }
 
-  // Xử lý thay đổi sắp xếp
   const handleSortChange = (value: string) => {
     setSort(value)
     setCurrentPage(1)
   }
 
-  // Xử lý thay đổi trang
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
   }
 
-  if (isLoading)
-    return (
-      <p>
-        <CourseDetailSkeleton />
-      </p>
-    )
+  // Reset all filters
+  const handleResetFilters = () => {
+    setSearchQuery('')
+    setSelectedCategory('')
+    setStatus('')
+    setSort('')
+    setMinPrice('')
+    setMaxPrice('')
+    setStartDate('')
+    setEndDate('')
+    setCurrentPage(1)
+  }
+
+  // if (isLoading) return <CourseDetailSkeleton />
   if (error) return <p>Error fetching courses: {error.message}</p>
 
   const courses: IAdminCourse[] = coursesData?.results || []
@@ -98,39 +118,109 @@ const AllCourses: React.FC = () => {
   return (
     <div className='container mx-auto pt-[100px]'>
       <div className='mb-6'>
-        <div className='flex flex-col sm:flex-row gap-4 justify-center'>
+        {/* Prominent Search Bar */}
+        <div className='mb-6'>
           <Input
             placeholder='Tìm kiếm khóa học...'
             value={searchQuery}
             onChange={handleSearchChange}
-            className='max-w-md dark:bg-neutral-800 dark:text-white dark:border-gray-700'
+            className='w-full text-lg py-6 px-4 rounded-lg border-2 border-primary shadow-lg focus:ring-2 focus:ring-primary focus:border-primary dark:bg-neutral-800 dark:text-white dark:border-gray-700 dark:focus:ring-primary transition-all duration-300'
           />
+        </div>
 
-          <Select onValueChange={handleStatusChange} value={status}>
-            <SelectTrigger className='w-[180px] dark:bg-neutral-800 dark:text-white dark:border-gray-700'>
-              <SelectValue placeholder='Trạng thái' />
-            </SelectTrigger>
-            <SelectContent>
-              {statuses.map((statusOption) => (
-                <SelectItem key={statusOption} value={statusOption}>
-                  {statusOption === 'All' ? 'Tất cả trạng thái' : statusOption}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        {/* Filters */}
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
+          <div>
+            <Select onValueChange={handleStatusChange} value={status}>
+              <SelectTrigger className='dark:bg-neutral-800 dark:text-white dark:border-gray-700'>
+                <SelectValue placeholder='Trạng thái' />
+              </SelectTrigger>
+              <SelectContent>
+                {statuses.map((statusOption) => (
+                  <SelectItem key={statusOption} value={statusOption}>
+                    {statusOption === 'All' ? 'Tất cả trạng thái' : statusOption}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
-          <Select onValueChange={handleSortChange} value={sort}>
-            <SelectTrigger className='w-[180px] dark:bg-neutral-800 dark:text-white dark:border-gray-700'>
-              <SelectValue placeholder='Sắp xếp' />
-            </SelectTrigger>
-            <SelectContent>
-              {sortOptions.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
-                  {option.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <div>
+            <Select onValueChange={handleSortChange} value={sort}>
+              <SelectTrigger className='dark:bg-neutral-800 dark:text-white dark:border-gray-700'>
+                <SelectValue placeholder='Sắp xếp' />
+              </SelectTrigger>
+              <SelectContent>
+                {sortOptions.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Input
+              type='number'
+              placeholder='Giá tối thiểu'
+              value={minPrice}
+              onChange={(e) => {
+                setMinPrice(e.target.value)
+                setCurrentPage(1)
+              }}
+              className='dark:bg-neutral-800 dark:text-white dark:border-gray-700'
+            />
+          </div>
+          <div>
+            <Input
+              type='number'
+              placeholder='Giá tối đa'
+              value={maxPrice}
+              onChange={(e) => {
+                setMaxPrice(e.target.value)
+                setCurrentPage(1)
+              }}
+              className='dark:bg-neutral-800 dark:text-white dark:border-gray-700'
+            />
+          </div>
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mt-4'>
+          <div>
+            <Label>Ngày bắt đầu</Label>
+            <Input
+              type='date'
+              value={startDate}
+              onChange={(e) => {
+                setStartDate(e.target.value)
+                setCurrentPage(1)
+              }}
+              className='dark:bg-neutral-800 dark:text-white dark:border-gray-700'
+            />
+          </div>
+          <div>
+            <Label>Ngày kết thúc</Label>
+            <Input
+              type='date'
+              value={endDate}
+              onChange={(e) => {
+                setEndDate(e.target.value)
+                setCurrentPage(1)
+              }}
+              className='dark:bg-neutral-800 dark:text-white dark:border-gray-700'
+            />
+          </div>
+        </div>
+
+        {/* Reset Filters Button */}
+        <div className='mt-4 flex justify-end'>
+          <Button
+            onClick={handleResetFilters}
+            variant='outline'
+            className='border-red-500 text-red-500 hover:bg-red-50 dark:border-red-400 dark:text-red-400 dark:hover:bg-red-900/20'
+          >
+            Xóa tất cả bộ lọc
+          </Button>
         </div>
       </div>
 
@@ -147,7 +237,11 @@ const AllCourses: React.FC = () => {
         ))}
       </div>
 
-      {courses.length > 0 ? (
+      {isLoading ? (
+        <div className='flex justify-center'>
+          <Loader className='w-8 h-8 animate-spin' />
+        </div>
+      ) : courses.length > 0 ? (
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
           {courses.map((course) => (
             <Card

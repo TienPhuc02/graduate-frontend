@@ -155,6 +155,10 @@ declare global {
     status?: string
     category?: string
     sort?: string
+    minPrice?: number
+    maxPrice?: number
+    startDate?: string
+    endDate?: string
   }
   export interface GetBlogsParams {
     page: number
