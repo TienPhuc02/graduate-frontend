@@ -162,3 +162,4 @@ export const updateOrderAPI = async (idOrder: string, data: IUpdateOrderDTO) => 
   const response = await axios.put<IBackendRes<IAdminOrder>>(urlBackend, data)
   return response.data
 }
+

@@ -5,7 +5,7 @@ import { ModeToggle } from '../common/ModeToggle'
 
 import { animate } from 'framer-motion'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu'
-import useUserStore from '../../stores/authStore'
+import useUserStore from '../../stores/userStore'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { logoutAPI } from '../../services/ApiService'
 
@@ -101,8 +101,8 @@ const HeaderHomePage = () => {
               <DropdownMenu>
                 <DropdownMenuTrigger>
                   <Avatar>
-                    <AvatarImage src={user.profilePicture || 'https://i.pravatar.cc/150'} alt={user.firstName} />
-                    <AvatarFallback>{user?.firstName.charAt(0) + user?.lastName.charAt(0)}</AvatarFallback>
+                    <AvatarImage src={user.profilePicture || 'https://i.pravatar.cc/150'} alt={user?.firstName} />
+                    <AvatarFallback>{user?.firstName.charAt(0) + user?.lastName.charAt(0)!}</AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align='end'>

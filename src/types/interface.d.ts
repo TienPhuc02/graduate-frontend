@@ -42,21 +42,21 @@ declare global {
   //user interface
   export interface IAdminUser {
     id: string
-    role: ETypeUser
+    role?: ETypeUser
     firstName: string
     lastName: string
     email?: string
     password?: string
     phoneNumber?: number
     address?: string
-    isVerified: boolean
-    totalAmount: string
-    orders: IAdminOrderItem[]
+    isVerified?: boolean
+    totalAmount?: string
+    orders?: IAdminOrderItem[]
     profilePicture?: string
     resetPasswordToken?: string
     resetPasswordExpires?: Date
     socialProvider?: ESocialType
-    isDeleted: boolean
+    isDeleted?: boolean
     deletedAt?: Date
     createdAt?: Date
     updatedAt?: Date
@@ -103,26 +103,28 @@ declare global {
   export interface IAdminCourse {
     id: string
     instructor: IAdminUser
-    title: string
-    description: string
-    category: string
-    comments: IAdminComment[]
-    qna: Qna[]
-    requirements: string[]
-    status: boolean
-    duration: number
-    viewsCourse: number
-    isDeleted: boolean
-    benefits: string[]
-    level: string
-    price: string
-    thumbnail: string
-    describe: null
+    title?: string
+    description?: string
+    category: ECourseCategory
+    qna?: { question: string; answer: string }[]
+    requirements?: string[]
+    status?: ECourseStatus
+    isDeleted?: boolean
+    benefits?: string[]
+    level: ECourseLevel
+    price?: number
+    thumbnail?: string
+    describe?: string
     createdAt: Date
     updatedAt: Date
-    deletedAt: null
-    rating: null
+    deletedAt: Date
+    rating: number
+    enrolledUsers: IAdminUser[]
     lectureCourses: IAdminLecture[]
+    viewsCourse: number
+    duration?: number
+    comments: IAdminComment[]
+    orderItems: IAdminOrderItem[]
   }
   export interface Qna {
     answer: string

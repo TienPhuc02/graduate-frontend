@@ -11,6 +11,7 @@ import ResetForgotPassword from '../pages/AuthPage/ResetForgotPassword'
 import CourseDetailPage from '../pages/DetailCourse'
 import MyCart from '@/pages/MyCart'
 import NotFound from '@/pages/NotFound'
+import MyCourses from '@/pages/MyCourses'
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,14 @@ const router = createBrowserRouter([
         element: (
           <>
             <MyCart />
+          </>
+        )
+      },
+      {
+        path: '/my-course',
+        element: (
+          <>
+            <MyCourses />
           </>
         )
       }

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import useUserStore from '../stores/authStore'
+import useUserStore from '../stores/userStore'
 import { getMe } from '../services/ApiService'
 import { useEffect } from 'react'
 
