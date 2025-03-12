@@ -42,15 +42,16 @@ declare global {
   //user interface
   export interface IAdminUser {
     id: string
-    role?: ETypeUser
+    role: ETypeUser
     firstName: string
     lastName: string
-    email?: string
-    password?: string
-    phoneNumber?: number
+    email: string
+    password: string
+    phoneNumber: number
     address?: string
     isVerified?: boolean
     totalAmount?: string
+    enrolledCourses?: IAdminCourse[]
     orders?: IAdminOrderItem[]
     profilePicture?: string
     resetPasswordToken?: string

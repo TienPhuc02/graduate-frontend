@@ -8,6 +8,8 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import useUserStore from '../../stores/userStore'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { logoutAPI } from '../../services/ApiService'
+import { useOrderStore } from '@/stores/userOrderStore'
+import { useCourseStore } from '@/stores/useCourseStore'
 
 const smoothScrollTo = (element: HTMLElement) => {
   const targetPosition = element.getBoundingClientRect().top + window.scrollY
@@ -22,7 +24,9 @@ const HeaderHomePage = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const { user, logout } = useUserStore()
-  console.log('🚀 ~ HeaderHomePage ~ user:', user)
+  const { order } = useOrderStore()
+  const { course } = useCourseStore()
+  console.log("🚀 ~ HeaderHomePage ~ user:", user)
   const handleNavClick = (event: React.MouseEvent, path: string) => {
     event.preventDefault()
     const sectionId = path.substring(1)

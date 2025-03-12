@@ -6,23 +6,23 @@ import { useEffect } from 'react'
 export const useFetchUser = () => {
   const setUser = useUserStore((state) => state.setUser)
 
-  const queryResult = useQuery({
+  const { data, isSuccess, isLoading, error } = useQuery({
     queryKey: ['getMe'],
     queryFn: getMe,
     retry: false
   })
 
   useEffect(() => {
-    if (queryResult.data && queryResult.data.data) {
-      setUser(queryResult?.data?.data)
+    if (data && data.data) {
+      setUser(data?.data)
     }
-  }, [queryResult?.data?.data])
+  }, [data?.data])
 
   useEffect(() => {
-    if (queryResult.error) {
+    if (error) {
       setUser(null)
     }
-  }, [queryResult.error])
+  }, [error])
 
-  return queryResult
+  return { dataUser: data, isLoading, error }
 }

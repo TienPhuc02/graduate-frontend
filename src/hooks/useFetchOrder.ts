@@ -11,15 +11,14 @@ export const useFetchOrder = () => {
   const { data, isSuccess, isLoading, error } = useQuery({
     queryKey: ['orders', user?.id],
     queryFn: () => getOrdersAPI(),
-    enabled: !!user?.id // Chỉ fetch khi user đã đăng nhập
+    enabled: !!user?.id
   })
 
   useEffect(() => {
     if (isSuccess && data?.results.length > 0) {
-      setOrder(data.results[0]) // Lấy order đầu tiên của user
+      setOrder(data.results[0])
     }
   }, [data, isSuccess, setOrder])
 
-  // 🛠 Fix lỗi: return một object để tránh undefined
   return { data, isLoading, error }
 }

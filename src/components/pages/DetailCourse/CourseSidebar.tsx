@@ -38,7 +38,6 @@ export const CourseSidebar = ({ course }: CourseSidebarProps) => {
   const createOrderItemMutation = useMutation({
     mutationFn: (data: ICreateOrderItemDTO) => createOrderItemAPI(data),
     onSuccess: (data) => {
-      console.log('🚀 ~ CourseSidebar ~ data:', data)
       setOrder((prev) => {
         if (!prev) return prev as unknown as IAdminOrder
         return {

@@ -4,14 +4,18 @@ import { useNavigate } from 'react-router-dom'
 import { useOrderStore } from '@/stores/userOrderStore'
 import { useFetchOrder } from '@/hooks/useFetchOrder'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { deleteOrderItemAPI, updateOrderAPI } from '@/services/ApiService'
+import { deleteOrderItemAPI, getMe, getOrdersAPI, updateOrderAPI } from '@/services/ApiService'
 import { Loader } from 'lucide-react'
+import { useFetchUser } from '@/hooks/useFetchUser'
+import useUserStore from '@/stores/userStore'
 
 const MyCart = () => {
   const queryClient = useQueryClient()
-  const { data, isLoading } = useFetchOrder()
+  const { isLoading } = useFetchOrder()
+  useFetchUser()
   const { order, setOrder } = useOrderStore()
-  console.log('🚀 ~ MyCart ~ order:', order)
+  const { user, setUser } = useUserStore()
+  console.log('🚀 ~ MyCart ~ user:', user)
   const navigate = useNavigate()
 
   const deleteMutation = useMutation({
@@ -26,8 +30,21 @@ const MyCart = () => {
   })
   const updateOrderMutation = useMutation({
     mutationFn: (orderItem: string) => updateOrderAPI(orderItem!, { status: 'completed' }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['orders'] })
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['orders'] })
+      await queryClient.invalidateQueries({ queryKey: ['getMe'] })
+      const updatedOrder = await queryClient.fetchQuery({
+        queryKey: ['orders', order?.id],
+        queryFn: () => getOrdersAPI()
+      })
+
+      const updatedUser = await queryClient.fetchQuery({
+        queryKey: ['getMe'],
+        queryFn: () => getMe()
+      })
+
+      setOrder(updatedOrder?.results[0])
+      setUser(updatedUser.data)
       navigate('/')
     }
   })
