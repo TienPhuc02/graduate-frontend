@@ -136,3 +136,24 @@ export const createOrderAPI = async (data: ICreateOrderDTO) => {
   const response = await axios.post<IBackendRes<IAdminOrder>>(urlBackend, data)
   return response.data
 }
+export const deleteOrderItemAPI = async (idOrderItem: string) => {
+  const urlBackend = `/orderItem/${idOrderItem}`
+  const response = await axios.delete<IBackendRes<IAdminOrderItem>>(urlBackend)
+  return response.data
+}
+export const deleteOrderAPI = async (idOrder: string) => {
+  const urlBackend = `/order/${idOrder}`
+  const response = await axios.delete<IBackendRes<IAdminOrder>>(urlBackend)
+  return response.data
+}
+export const getOrderItemsAPI = async (query?: string) => {
+  const urlBackend = `/orderItem?${query}`
+  const response = await axios.get<IBackendRes<IModelPaginate<IAdminOrderItem>>>(urlBackend)
+  return response.data
+}
+export const getOrdersAPI = async (query?: string) => {
+  const urlBackend = `/order?${query}`
+  const response = await axios.get<IBackendRes<IModelPaginate<IAdminOrder>>>(urlBackend)
+
+  return response.data
+}

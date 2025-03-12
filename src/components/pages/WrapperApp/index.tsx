@@ -1,10 +1,10 @@
 import { Outlet } from 'react-router-dom'
 import HeaderHomePage from '../../layout/HeaderHomePage'
-import { useAuthQuery } from '../../../hooks/useAuthquery'
+import { useFetchUser } from '../../../hooks/useFetchUser'
 import { Loader } from 'lucide-react'
 
 const WrapperApp = () => {
-  const { isLoading } = useAuthQuery()
+  const { isLoading } = useFetchUser()
 
   if (isLoading) {
     return (

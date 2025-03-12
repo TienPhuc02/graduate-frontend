@@ -3,7 +3,7 @@ import useAuthStore from '../stores/authStore'
 import { getMe } from '../services/ApiService'
 import { useEffect } from 'react'
 
-export const useAuthQuery = () => {
+export const useFetchUser = () => {
   const setUser = useAuthStore((state) => state.setUser)
 
   const queryResult = useQuery({

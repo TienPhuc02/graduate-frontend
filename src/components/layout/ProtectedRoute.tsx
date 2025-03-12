@@ -1,10 +1,10 @@
 import { Navigate } from 'react-router-dom'
 import React from 'react'
-import { useAuthQuery } from '../../hooks/useAuthquery'
+import { useFetchUser } from '../../hooks/useFetchUser'
 import { Loader } from 'lucide-react'
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { data: user, isLoading } = useAuthQuery()
+  const { data: user, isLoading } = useFetchUser()
 
   if (isLoading)
     return (

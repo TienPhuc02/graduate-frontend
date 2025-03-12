@@ -101,7 +101,7 @@ declare global {
     userId: string
     totalAmount: number
     status: 'pending' | 'processing' | 'completed' | 'cancelled'
-    orderItems: { productId: string; quantity: number }[]
+    orderItems: { productId: string;  quantity: number }[]
     couponId?: string
   }
   export interface IUpdateCouponDTO {
