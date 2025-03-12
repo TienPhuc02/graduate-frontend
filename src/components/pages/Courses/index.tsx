@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { Image } from 'antd'
-import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 // import { CourseDetailSkeleton } from '../DetailCourse/CourseDetailSkeleton'
 import { getCoursesAPI } from '../../../services/ApiService'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select'
@@ -19,8 +19,9 @@ interface SortOption {
 
 const AllCourses: React.FC = () => {
   const navigate = useNavigate()
-
-  const [searchQuery, setSearchQuery] = useState<string>('')
+  const [searchParams] = useSearchParams()
+  const initialSearchQuery = searchParams.get('search') || ''
+  const [searchQuery, setSearchQuery] = useState<string>(initialSearchQuery)
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [pageSize] = useState<number>(10)
   const [selectedCategory, setSelectedCategory] = useState<string>('')
@@ -71,7 +72,15 @@ const AllCourses: React.FC = () => {
         sort: sort || undefined
       })
   })
-
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams)
+    if (searchQuery) {
+      params.set('search', searchQuery)
+    } else {
+      params.delete('search')
+    }
+    navigate(`?${params.toString()}`, { replace: true })
+  }, [searchQuery, navigate, searchParams])
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value)
     setCurrentPage(1)

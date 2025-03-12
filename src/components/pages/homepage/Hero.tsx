@@ -16,8 +16,27 @@ import PostgreSQL from '../../common/icons/PostgreIcon'
 import Adobe from '../../common/icons/AdobeIcon'
 import Figma from '../../common/icons/Figma'
 import Photoshop from '../../common/icons/PhotoshopIcon'
+import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 
 export default function Hero() {
+  const navigate = useNavigate()
+  const [searchInput, setSearchInput] = useState<string>('')
+
+  const handleSearch = () => {
+    if (searchInput.trim()) {
+      navigate(`/courses?search=${encodeURIComponent(searchInput.trim())}`)
+    } else {
+      navigate('/courses')
+    }
+  }
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch()
+    }
+  }
+
   return (
     <div className='w-full flex flex-col items-center justify-center px-4'>
       <div className='max-w-8xl mx-auto text-center space-y-8 pt-[100px]'>
@@ -41,8 +60,17 @@ export default function Hero() {
         </div>
 
         <div className='flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto'>
-          <Input type='text' placeholder='Tìm kiếm khóa học' className='h-12' />
-          <Button className='h-12 px-8'>Tìm kiếm</Button>
+          <Input
+            type='text'
+            placeholder='Tìm kiếm khóa học'
+            className='h-12'
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            onKeyPress={handleKeyPress}
+          />
+          <Button className='h-12 px-8' onClick={handleSearch}>
+            Tìm kiếm
+          </Button>
         </div>
 
         <div className='pt-16 space-y-4'>
