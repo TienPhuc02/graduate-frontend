@@ -22,7 +22,6 @@ const HeaderHomePage = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const { user, logout } = useAuthStore()
-  console.log('🚀 ~ HeaderHomePage ~ user:', user)
 
   const handleNavClick = (event: React.MouseEvent, path: string) => {
     event.preventDefault()

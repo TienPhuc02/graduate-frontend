@@ -1,9 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { Image } from 'antd'
-
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-
 import { CourseDetailSkeleton } from '../DetailCourse/CourseDetailSkeleton'
 import { EBlogStatus, ECourseCategory } from '../../../types/enum'
 import { getBlogsAPI } from '../../../services/ApiService'
@@ -12,11 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Button } from '../../ui/button'
 import { Card, CardContent } from '../../ui/card'
 import CustomPagination from '../../common/CustomPagination'
-
-// interface Author {
-//   firstName?: string
-//   lastName?: string
-// }
+import { Loader } from 'lucide-react'
 
 interface SortOption {
   label: string
@@ -32,6 +26,8 @@ const AllBlogs: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('')
   const [status, setStatus] = useState<string>('')
   const [sort, setSort] = useState<string>('')
+  const [startDate, setStartDate] = useState<string>('')
+  const [endDate, setEndDate] = useState<string>('')
 
   const categories: string[] = ['All', ...Object.values(ECourseCategory)]
   const statuses: string[] = ['All', ...Object.values(EBlogStatus)]
@@ -47,14 +43,14 @@ const AllBlogs: React.FC = () => {
     isLoading,
     error
   } = useQuery({
-    queryKey: ['getAllBlogs', searchQuery, selectedCategory, status, currentPage] as const,
+    queryKey: ['getAllBlogs', searchQuery, selectedCategory, status, startDate, endDate, sort, currentPage] as const,
     queryFn: () =>
       getBlogsAPI({
         page: currentPage,
         pageSize,
         title: searchQuery || undefined,
-        isPublished: status !== 'All' ? status : undefined,
-        categoryBlog: selectedCategory !== 'All' ? selectedCategory : undefined,
+        startDate: startDate || undefined,
+        endDate: endDate || undefined,
         sort: sort || undefined
       })
   })
@@ -83,13 +79,17 @@ const AllBlogs: React.FC = () => {
     setCurrentPage(page)
   }
 
-  if (isLoading)
-    return (
-      <p>
-        {' '}
-        <CourseDetailSkeleton />
-      </p>
-    )
+  const handleResetFilters = () => {
+    setSearchQuery('')
+    setSelectedCategory('')
+    setStatus('')
+    setSort('')
+    setStartDate('')
+    setEndDate('')
+    setCurrentPage(1)
+  }
+
+  if (isLoading) return <CourseDetailSkeleton />
   if (error) return <p>Error fetching blogs: {error.message}</p>
 
   const blogs: IAdminBlog[] = blogsData?.results || []
@@ -98,39 +98,82 @@ const AllBlogs: React.FC = () => {
   return (
     <div className='container mx-auto pt-[100px]'>
       <div className='mb-6'>
-        <div className='flex flex-col sm:flex-row gap-4 justify-center'>
+        {/* Prominent Search Bar */}
+        <div className='mb-6'>
           <Input
             placeholder='Tìm kiếm bài viết...'
             value={searchQuery}
             onChange={handleSearchChange}
-            className='max-w-md dark:bg-neutral-800 dark:text-white dark:border-gray-700'
+            className='w-full text-lg py-6 px-4 rounded-lg border-2 border-primary shadow-lg focus:ring-2 focus:ring-primary focus:border-primary dark:bg-neutral-800 dark:text-white dark:border-gray-700 dark:focus:ring-primary transition-all duration-300'
           />
+        </div>
 
-          <Select onValueChange={handleStatusChange} value={status}>
-            <SelectTrigger className='w-[180px] dark:bg-neutral-800 dark:text-white dark:border-gray-700'>
-              <SelectValue placeholder='Trạng thái' />
-            </SelectTrigger>
-            <SelectContent>
-              {statuses.map((statusOption) => (
-                <SelectItem key={statusOption} value={statusOption}>
-                  {statusOption === 'All' ? 'Tất cả trạng thái' : statusOption}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        {/* Filters */}
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
+          <div>
+            <Select onValueChange={handleStatusChange} value={status}>
+              <SelectTrigger className='dark:bg-neutral-800 dark:text-white dark:border-gray-700'>
+                <SelectValue placeholder='Trạng thái' />
+              </SelectTrigger>
+              <SelectContent>
+                {statuses.map((statusOption) => (
+                  <SelectItem key={statusOption} value={statusOption}>
+                    {statusOption === 'All' ? 'Tất cả trạng thái' : statusOption}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
-          <Select onValueChange={handleSortChange} value={sort}>
-            <SelectTrigger className='w-[180px] dark:bg-neutral-800 dark:text-white dark:border-gray-700'>
-              <SelectValue placeholder='Sắp xếp' />
-            </SelectTrigger>
-            <SelectContent>
-              {sortOptions.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
-                  {option.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <div>
+            <Select onValueChange={handleSortChange} value={sort}>
+              <SelectTrigger className='dark:bg-neutral-800 dark:text-white dark:border-gray-700'>
+                <SelectValue placeholder='Sắp xếp' />
+              </SelectTrigger>
+              <SelectContent>
+                {sortOptions.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Input
+              type='date'
+              value={startDate}
+              onChange={(e) => {
+                setStartDate(e.target.value)
+                setCurrentPage(1)
+              }}
+              className='dark:bg-neutral-800 dark:text-white dark:border-gray-700'
+            />
+          </div>
+          <div>
+            <Input
+              type='date'
+              value={endDate}
+              onChange={(e) => {
+                setEndDate(e.target.value)
+                setCurrentPage(1)
+              }}
+              className='dark:bg-neutral-800 dark:text-white dark:border-gray-700'
+            />
+          </div>
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4'></div>
+
+        {/* Reset Filters Button */}
+        <div className='mt-4 flex justify-end'>
+          <Button
+            onClick={handleResetFilters}
+            variant='outline'
+            className='border-red-500 text-red-500 hover:bg-red-50 dark:border-red-400 dark:text-red-400 dark:hover:bg-red-900/20'
+          >
+            Xóa tất cả bộ lọc
+          </Button>
         </div>
       </div>
 
@@ -147,7 +190,11 @@ const AllBlogs: React.FC = () => {
         ))}
       </div>
 
-      {blogs.length > 0 ? (
+      {isLoading ? (
+        <div className='flex justify-center'>
+          <Loader className='w-8 h-8 animate-spin' />
+        </div>
+      ) : blogs.length > 0 ? (
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
           {blogs.map((blog) => (
             <Card

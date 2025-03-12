@@ -167,6 +167,8 @@ declare global {
     isPublished?: string
     categoryBlog?: string
     sort?: string
+    startDate?: string
+    endDate?: string
   }
   export interface IAdminLesson {
     id: string

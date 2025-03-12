@@ -19,7 +19,6 @@ export const CourseSidebar = ({ course }: CourseSidebarProps) => {
   const [orderId, setOrderId] = useState<string | null>(order?.id || null)
   const { user } = useAuthStore()
   const isRegistered = order?.orderItems?.some((item) => item.courseId === course.id) ?? false
-  console.log('🚀 ~ CourseSidebar ~ isRegistered:', isRegistered)
 
   const createOrderMutation = useMutation({
     mutationFn: (data: ICreateOrderDTO) => createOrderAPI({ ...data, userId: user?.id! }),

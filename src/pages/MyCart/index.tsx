@@ -3,15 +3,13 @@ import { Card, CardHeader, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 // import { deleteOrderItemAPI, fetchOrdersAPI } from '@/services/ApiService'
 import { useNavigate } from 'react-router-dom'
-import { useOrderStore } from '@/stores/userOrderStore'
+// import { useOrderStore } from '@/stores/userOrderStore'
 import useAuthStore from '@/stores/authStore'
 
 const MyCart = () => {
   // const queryClient = useQueryClient()
-  const { order } = useOrderStore()
-  console.log('🚀 ~ MyCart ~ order:', order)
+  // const { order } = useOrderStore()
   const { user } = useAuthStore()
-  console.log('🚀 ~ MyCart ~ user:', user)
   const navigate = useNavigate()
 
   //   // Fetch danh sách đơn hàng từ API
