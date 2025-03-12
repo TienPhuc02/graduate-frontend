@@ -2,11 +2,11 @@ import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { getOrdersAPI } from '@/services/ApiService'
 import { useOrderStore } from '@/stores/userOrderStore'
-import useAuthStore from '@/stores/authStore'
+import useUserStore from '@/stores/authStore'
 
 export const useFetchOrder = () => {
   const { setOrder } = useOrderStore()
-  const { user } = useAuthStore()
+  const { user } = useUserStore()
 
   const { data, isSuccess, isLoading, error } = useQuery({
     queryKey: ['orders', user?.id],

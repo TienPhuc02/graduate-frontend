@@ -1,7 +1,6 @@
 import { Card, CardHeader, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { useNavigate } from 'react-router-dom'
-import useAuthStore from '@/stores/authStore'
 import { useOrderStore } from '@/stores/userOrderStore'
 import { useFetchOrder } from '@/hooks/useFetchOrder'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -12,9 +11,6 @@ const MyCart = () => {
   const queryClient = useQueryClient()
   const { isLoading } = useFetchOrder()
   const { order, setOrder } = useOrderStore()
-  console.log('🚀 ~ MyCart ~ order:', order)
-  const { user } = useAuthStore()
-  console.log('🚀 ~ MyCart ~ user:', user)
   const navigate = useNavigate()
 
   const deleteMutation = useMutation({
@@ -28,7 +24,7 @@ const MyCart = () => {
     }
   })
   const updateOrderMutation = useMutation({
-    mutationFn: (orderItem: string) => updateOrderAPI(order?.id!, { status: 'completed' }),
+    mutationFn: (orderItem: string) => updateOrderAPI(orderItem!, { status: 'completed' }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['orders'] })
       navigate('/')

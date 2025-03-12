@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
-import useAuthStore from '../stores/authStore'
+import useUserStore from '../stores/authStore'
 import { getMe } from '../services/ApiService'
 import { useEffect } from 'react'
 
 export const useFetchUser = () => {
-  const setUser = useAuthStore((state) => state.setUser)
+  const setUser = useUserStore((state) => state.setUser)
 
   const queryResult = useQuery({
     queryKey: ['getMe'],

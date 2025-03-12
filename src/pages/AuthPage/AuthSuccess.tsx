@@ -3,14 +3,14 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { CheckCircle2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import useAuthStore from '@/stores/authStore'
+import useUserStore from '@/stores/authStore'
 import { getMe } from '@/services/ApiService'
 import { toast } from 'sonner'
 import { Skeleton } from '@/components/ui/skeleton'
 
 function AuthSuccess() {
   const [searchParams] = useSearchParams()
-  const setUser = useAuthStore((state) => state.setUser)
+  const setUser = useUserStore((state) => state.setUser)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {

@@ -5,7 +5,7 @@ import { Avatar } from 'antd'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { createOrderAPI, createOrderItemAPI } from '@/services/ApiService'
-import useAuthStore from '@/stores/authStore'
+import useUserStore from '@/stores/authStore'
 import { useOrderStore } from '@/stores/userOrderStore'
 import { Loader } from 'lucide-react'
 import { useFetchOrder } from '@/hooks/useFetchOrder'
@@ -15,22 +15,16 @@ interface CourseSidebarProps {
 }
 
 export const CourseSidebar = ({ course }: CourseSidebarProps) => {
-  console.log('🚀 ~ CourseSidebar ~ course:', course.id)
   const navigate = useNavigate()
   const { data } = useFetchOrder()
   const { order, setOrder } = useOrderStore()
   const [orderId, setOrderId] = useState<string | null>(order?.id || null)
-  const { user } = useAuthStore()
+  const { user } = useUserStore()
   const isRegistered = order?.orderItems?.some((item) => item.courseId === course.id) ?? false
-  console.log('🚀 ~ CourseSidebar ~ isRegistered:', isRegistered)
-  console.log('🚀 ~ CourseSidebar ~ user:', user)
-  console.log('🚀 ~ CourseSidebar ~ data:', data)
-  console.log('🚀 ~ CourseSidebar ~ order:', order)
 
   const createOrderMutation = useMutation({
     mutationFn: (data: ICreateOrderDTO) => createOrderAPI({ ...data, userId: user?.id! }),
     onSuccess: (data) => {
-      console.log('🚀 ~ CourseSidebar ~ data:', data)
       setOrder(data)
       setOrderId(data.id)
       createOrderItemMutation.mutate({

@@ -5,7 +5,7 @@ import { ModeToggle } from '../common/ModeToggle'
 
 import { animate } from 'framer-motion'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu'
-import useAuthStore from '../../stores/authStore'
+import useUserStore from '../../stores/authStore'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { logoutAPI } from '../../services/ApiService'
 
@@ -21,8 +21,8 @@ const smoothScrollTo = (element: HTMLElement) => {
 const HeaderHomePage = () => {
   const location = useLocation()
   const navigate = useNavigate()
-  const { user, logout } = useAuthStore()
-
+  const { user, logout } = useUserStore()
+  console.log('🚀 ~ HeaderHomePage ~ user:', user)
   const handleNavClick = (event: React.MouseEvent, path: string) => {
     event.preventDefault()
     const sectionId = path.substring(1)

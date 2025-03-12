@@ -6,10 +6,10 @@ interface UserState {
   logout: () => void
 }
 
-const useAuthStore = create<UserState>((set) => ({
+const useUserStore = create<UserState>((set) => ({
   user: null,
   setUser: (user) => set({ user }),
   logout: () => set({ user: null })
 }))
 
-export default useAuthStore
+export default useUserStore
