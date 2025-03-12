@@ -10,13 +10,14 @@ const MyCart = () => {
   // const queryClient = useQueryClient()
   // const { order } = useOrderStore()
   const { user } = useAuthStore()
+  console.log('🚀 ~ MyCart ~ user:', user)
   const navigate = useNavigate()
 
   //   // Fetch danh sách đơn hàng từ API
-  //   const { data: orders, isLoading } = useQuery({
-  //     queryKey: ['orders'],
-  //     queryFn: fetchOrdersAPI
-  //   })
+  // const { data: orders, isLoading } = useQuery({
+  //   queryKey: ['orders'],
+  //   queryFn: fetchOrdersAPI
+  // })
 
   // Xóa order item
   //   const deleteMutation = useMutation({

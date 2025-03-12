@@ -10,10 +10,12 @@ import ForgotPassword from '../pages/AuthPage/ForgotPassword'
 import ResetForgotPassword from '../pages/AuthPage/ResetForgotPassword'
 import CourseDetailPage from '../pages/DetailCourse'
 import MyCart from '@/pages/MyCart'
+import NotFound from '@/pages/NotFound'
 
 const router = createBrowserRouter([
   {
     path: '/',
+    errorElement: <NotFound />,
     element: (
       <>
         <WrapperApp />
@@ -64,6 +66,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/authentication',
+    errorElement: <NotFound />,
     element: (
       <>
         <AuthenticationPage />
