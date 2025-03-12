@@ -157,3 +157,8 @@ export const getOrdersAPI = async (query?: string) => {
 
   return response.data
 }
+export const updateOrderAPI = async (idOrder: string, data: IUpdateOrderDTO) => {
+  const urlBackend = `/order/${idOrder}`
+  const response = await axios.put<IBackendRes<IAdminOrder>>(urlBackend, data)
+  return response.data
+}

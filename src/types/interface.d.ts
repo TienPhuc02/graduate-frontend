@@ -50,6 +50,7 @@ declare global {
     phoneNumber?: number
     address?: string
     isVerified: boolean
+    totalAmount: string
     orders: IAdminOrderItem[]
     profilePicture?: string
     resetPasswordToken?: string

@@ -49,7 +49,7 @@ export const CourseSidebar = ({ course }: CourseSidebarProps) => {
         if (!prev) return prev as unknown as IAdminOrder
         return {
           ...prev,
-          totalAmount: prev.totalAmount + data.price,
+          totalAmount: Number(prev.totalAmount) + Number(data.price),
           orderItems: [...(prev.orderItems || []), data]
         }
       })
