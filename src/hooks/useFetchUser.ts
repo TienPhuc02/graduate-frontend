@@ -6,7 +6,7 @@ import { useEffect } from 'react'
 export const useFetchUser = () => {
   const setUser = useUserStore((state) => state.setUser)
 
-  const { data, isSuccess, isLoading, error } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ['getMe'],
     queryFn: getMe,
     retry: false

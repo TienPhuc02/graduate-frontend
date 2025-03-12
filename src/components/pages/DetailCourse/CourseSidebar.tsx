@@ -8,7 +8,7 @@ import { createOrderAPI, createOrderItemAPI } from '@/services/ApiService'
 import useUserStore from '@/stores/userStore'
 import { useOrderStore } from '@/stores/userOrderStore'
 import { Loader } from 'lucide-react'
-import { useFetchOrder } from '@/hooks/useFetchOrder'
+// import { useFetchOrder } from '@/hooks/useFetchOrder'
 
 interface CourseSidebarProps {
   course: IAdminCourse
@@ -16,7 +16,7 @@ interface CourseSidebarProps {
 
 export const CourseSidebar = ({ course }: CourseSidebarProps) => {
   const navigate = useNavigate()
-  const { data } = useFetchOrder()
+  // const { data } = useFetchOrder()
   const { order, setOrder } = useOrderStore()
   const [orderId, setOrderId] = useState<string | null>(order?.id || null)
   const { user } = useUserStore()

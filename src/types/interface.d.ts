@@ -107,7 +107,7 @@ declare global {
     title?: string
     description?: string
     category: ECourseCategory
-    qna?: { question: string; answer: string }[]
+    qna: { question: string; answer: string }[]
     requirements?: string[]
     status?: ECourseStatus
     isDeleted?: boolean

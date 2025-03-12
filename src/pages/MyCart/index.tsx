@@ -14,8 +14,7 @@ const MyCart = () => {
   const { isLoading } = useFetchOrder()
   useFetchUser()
   const { order, setOrder } = useOrderStore()
-  const { user, setUser } = useUserStore()
-  console.log('🚀 ~ MyCart ~ user:', user)
+  const { setUser } = useUserStore()
   const navigate = useNavigate()
 
   const deleteMutation = useMutation({
