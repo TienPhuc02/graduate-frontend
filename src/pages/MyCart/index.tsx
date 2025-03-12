@@ -9,8 +9,9 @@ import { Loader } from 'lucide-react'
 
 const MyCart = () => {
   const queryClient = useQueryClient()
-  const { isLoading } = useFetchOrder()
+  const { data, isLoading } = useFetchOrder()
   const { order, setOrder } = useOrderStore()
+  console.log('🚀 ~ MyCart ~ order:', order)
   const navigate = useNavigate()
 
   const deleteMutation = useMutation({
@@ -43,7 +44,7 @@ const MyCart = () => {
       <h1 className='text-2xl font-semibold mb-4'>🛒 My Cart</h1>
 
       <div className='space-y-4'>
-        {order?.orderItems.length === 0 ? (
+        {order === null || order?.orderItems.length === 0 ? (
           <p className='text-center text-gray-500'>Không có đơn hàng nào trong giỏ hàng của bạn.</p>
         ) : (
           order?.orderItems.map((orderItem) => (
@@ -73,7 +74,7 @@ const MyCart = () => {
           ))
         )}
       </div>
-      {order?.orderItems.length === 0 ? (
+      {order == null || order?.orderItems.length === 0 ? (
         <div className='mt-6 flex justify-end'>
           <Button onClick={() => navigate('/courses')} className='mt-4 bg-gray-500 text-white'>
             Khám phá khóa học
