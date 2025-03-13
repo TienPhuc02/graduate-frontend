@@ -10,7 +10,6 @@ const LearnCourse = () => {
   const { id } = useParams()
   const { fetchCourseById } = useFetchCourse()
   const { course, selectedLesson, setSelectedLesson, loading, error } = useCourseStore()
-  console.log('🚀 ~ LearnCourse ~ selectedLesson:', selectedLesson)
 
   useEffect(() => {
     if (id) fetchCourseById(id)

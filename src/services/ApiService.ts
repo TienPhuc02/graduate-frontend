@@ -126,6 +126,11 @@ export const createCommentAPI = ({
     parentCommentId
   })
 }
+export const getCommentsAPI = async (query?: string) => {
+  const urlBackend = `/comment?${query}`
+  const response = await axios.get<IBackendRes<IModelPaginate<IAdminComment>>>(urlBackend)
+  return response.data
+}
 export const createOrderItemAPI = async (data: ICreateOrderItemDTO) => {
   const urlBackend = `/orderItem`
   const response = await axios.post<IBackendRes<IAdminOrderItem>>(urlBackend, data)
@@ -162,4 +167,3 @@ export const updateOrderAPI = async (idOrder: string, data: IUpdateOrderDTO) => 
   const response = await axios.put<IBackendRes<IAdminOrder>>(urlBackend, data)
   return response.data
 }
-

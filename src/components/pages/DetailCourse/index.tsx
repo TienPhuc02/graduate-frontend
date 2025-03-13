@@ -34,7 +34,7 @@ export const CourseDetail = ({ courseId }: CourseDetailProps) => {
         <CourseSidebar course={course} />
       </div>
       <CourseContent course={course} />
-      <CommentCourse courseId={courseId} comments={course.comments} />
+      <CommentCourse courseId={courseId}  />
     </div>
   )
 }

@@ -51,6 +51,7 @@ declare global {
     address?: string
     isVerified?: boolean
     totalAmount?: string
+    comments?: IAdminComment[]
     enrolledCourses?: IAdminCourse[]
     orders?: IAdminOrderItem[]
     profilePicture?: string
@@ -190,11 +191,12 @@ declare global {
   }
   export interface IAdminComment {
     id: string
-    user: string
+    user: IAdminUser
     course?: string | null
     blog?: string | null
     text: string
     likesCount: number
+    course: IAdminCourse
     parentCommentId?: string | null
     isEdited: boolean
     isDeleted: boolean
@@ -204,14 +206,21 @@ declare global {
     status: 'pending' | 'approved' | 'rejected'
     replies?: IAdminComment[]
   }
-  export interface IComment {
+  export interface IAdminComment {
     id: string
-    content: string
-    user: { id: string; firstName: string; lastName: string; profilePicture?: string }
-    createdAt: string
-    replies: IComment[]
-    parent?: IComment | null
+    user: User
+    course?: Course | null
+    blog?: Blog | null
+    text: string
+    likesCount: number
+    parentCommentId?: string | null
+    parentComment?: IAdminComment | null
+    replies?: IAdminComment[]
+    isEdited: boolean
     isDeleted: boolean
+    deletedAt?: Date | null
+    createdAt: Date
+    updatedAt: Date
     status: 'pending' | 'approved' | 'rejected'
   }
   export interface IAdminOrderItem {
