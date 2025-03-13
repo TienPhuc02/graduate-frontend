@@ -1,24 +1,24 @@
 import { create } from 'zustand'
-import { getCourseByIdAPI } from '@/services/ApiService'
 
 interface CourseState {
   course: IAdminCourse | null
+  selectedLesson: IAdminLesson | null
   loading: boolean
   error: string | null
-  fetchCourseByUserId: (idCourse: string) => Promise<void>
+  setLoading: (loading: boolean) => void
+  setError: (error: string | null) => void
+  setCourse: (course: IAdminCourse | null) => void
+  setSelectedLesson: (lesson: IAdminLesson) => void
 }
 
 export const useCourseStore = create<CourseState>((set) => ({
   course: null,
+  selectedLesson: null,
   loading: false,
   error: null,
-  fetchCourseByUserId: async (idCourse: string) => {
-    set({ loading: true, error: null })
-    try {
-      const response = await getCourseByIdAPI(idCourse)
-      set({ course: response, loading: false })
-    } catch (error) {
-      set({ error: 'Không thể tải khóa học', loading: false })
-    }
-  }
+
+  setLoading: (loading) => set({ loading }),
+  setError: (error) => set({ error }),
+  setCourse: (course) => set({ course }),
+  setSelectedLesson: (lesson) => set({ selectedLesson: lesson })
 }))

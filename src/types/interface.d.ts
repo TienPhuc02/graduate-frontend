@@ -104,7 +104,7 @@ declare global {
   export interface IAdminCourse {
     id: string
     instructor: IAdminUser
-    title?: string
+    title: string
     description?: string
     category: ECourseCategory
     qna: { question: string; answer: string }[]

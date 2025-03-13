@@ -12,6 +12,7 @@ import CourseDetailPage from '../pages/DetailCourse'
 import MyCart from '@/pages/MyCart'
 import NotFound from '@/pages/NotFound'
 import MyCourses from '@/pages/MyCourses'
+import LearningPage from '@/pages/LearnCourse'
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,14 @@ const router = createBrowserRouter([
         element: (
           <>
             <MyCourses />
+          </>
+        )
+      },
+      {
+        path: '/learn-course/:id',
+        element: (
+          <>
+            <LearningPage />
           </>
         )
       }

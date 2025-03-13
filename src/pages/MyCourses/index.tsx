@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import useUserStore from '@/stores/userStore'
+import { Link } from 'react-router-dom'
 
 const MyCourses = () => {
   const { user } = useUserStore()
@@ -38,9 +39,11 @@ const MyCourses = () => {
                 <Button variant='default' size='sm'>
                   Xem chi tiết
                 </Button>
-                <Button variant='destructive' size='sm'>
-                  Vào học
-                </Button>
+                <Link to={`/learn-course/${course.id}`}>
+                  <Button variant='destructive' size='sm'>
+                    Vào học luôn !!
+                  </Button>
+                </Link>
               </div>
             </CardContent>
           </Card>

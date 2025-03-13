@@ -24,6 +24,7 @@ const HeaderHomePage = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const { user, logout } = useUserStore()
+  console.log('🚀 ~ HeaderHomePage ~ user:', user)
   // const { order } = useOrderStore()
   // const { course } = useCourseStore()
   const handleNavClick = (event: React.MouseEvent, path: string) => {
