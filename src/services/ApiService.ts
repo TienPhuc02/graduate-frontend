@@ -22,7 +22,11 @@ export const logoutAPI = () => {
     }
   })
 }
-
+export const getBlogByIdAPI = async (idBlog: string) => {
+  const urlBackend = `/blog/${idBlog}`
+  const response = await axios.get<IBackendRes<IAdminBlog>>(urlBackend)
+  return response?.data
+}
 export const registerAPI = (data: IRegisterUserDTO) => {
   const urlBackend = '/auth/register'
   return axios.post<IBackendRes<any>>(urlBackend, data, {

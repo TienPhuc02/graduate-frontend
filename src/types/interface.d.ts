@@ -68,19 +68,15 @@ declare global {
     title: string
     content: string
     categoryBlog: string
-    author: {
-      id: string
-      firstName: string
-      lastName: string
-    }
+    author: IAdminUser
     viewsBlog: number
     isPublished: EBlogStatus
     comments: string[]
     thumbnail: string
     isDeleted: boolean
-    deletedAt: Date
-    createdAt: Date
-    updatedAt: Date
+    deletedAt: string
+    createdAt: string
+    updatedAt: string
   }
   export interface ICreateUserDTO {
     role: ETypeUser

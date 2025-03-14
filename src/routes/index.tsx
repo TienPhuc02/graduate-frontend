@@ -13,6 +13,7 @@ import MyCart from '@/pages/MyCart'
 import NotFound from '@/pages/NotFound'
 import MyCourses from '@/pages/MyCourses'
 import LearningPage from '@/pages/LearnCourse'
+import DetailBlogPage from '@/pages/DetailBlog'
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,14 @@ const router = createBrowserRouter([
         element: (
           <>
             <BlogsPage />
+          </>
+        )
+      },
+      {
+        path: '/blog/:id',
+        element: (
+          <>
+            <DetailBlogPage />
           </>
         )
       },

@@ -96,7 +96,7 @@
 
   /* Thanh cuộn */
   ::-webkit-scrollbar-thumb {
-    background: hsl(var(--muted-foreground) / 50%);
+    background: hsla(var(--muted-foreground), 50%);
     border-radius: 6px;
     transition: background 0.3s ease;
   }

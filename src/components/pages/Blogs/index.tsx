@@ -22,7 +22,7 @@ const AllBlogs: React.FC = () => {
 
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const [pageSize] = useState<number>(10)
+  const [pageSize] = useState<number>(6)
   const [selectedCategory, setSelectedCategory] = useState<string>('')
   const [status, setStatus] = useState<string>('')
   const [sort, setSort] = useState<string>('')
