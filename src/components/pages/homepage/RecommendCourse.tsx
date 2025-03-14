@@ -16,7 +16,7 @@ const RecommendCourse = () => {
     error
   } = useQuery({
     queryKey: ['getRecommendCourses'],
-    queryFn: () => getCoursesAPI({ page: 1, pageSize: 3, status: ECourseStatus.ACTIVE })
+    queryFn: () => getCoursesAPI({ page: 1, pageSize: 3, sort: '-createdAt', status: ECourseStatus.ACTIVE })
   })
 
   if (isLoading)

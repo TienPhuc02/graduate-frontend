@@ -2,7 +2,7 @@ import { create } from 'zustand'
 
 interface OrderState {
   order: IAdminOrder | null
-  setOrder: (order: IAdminOrder | ((prev: IAdminOrder | null) => IAdminOrder)) => void
+  setOrder: (order: IAdminOrder | null | ((prev: IAdminOrder | null) => IAdminOrder | null)) => void
 }
 
 export const useOrderStore = create<OrderState>((set) => ({

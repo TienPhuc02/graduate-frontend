@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 
 const MyCourses = () => {
   const { user } = useUserStore()
+  console.log('🚀 ~ MyCourses ~ user:', user)
   const enrolledCourses = user?.enrolledCourses || []
 
   if (!enrolledCourses.length) return <p>Không có khóa học nào.</p>

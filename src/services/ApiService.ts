@@ -126,8 +126,12 @@ export const createCommentAPI = ({
     parentCommentId
   })
 }
-export const getCommentsAPI = async (query?: string) => {
-  const urlBackend = `/comment?${query}`
+export const getCommentsAPI = async (params: { blogId?: string; courseId?: string }) => {
+  const query = new URLSearchParams()
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined) query.append(key, value.toString())
+  })
+  const urlBackend = `/comment?${query.toString()}`
   const response = await axios.get<IBackendRes<IModelPaginate<IAdminComment>>>(urlBackend)
   return response.data
 }
@@ -156,7 +160,13 @@ export const getOrderItemsAPI = async (query?: string) => {
   const response = await axios.get<IBackendRes<IModelPaginate<IAdminOrderItem>>>(urlBackend)
   return response.data
 }
-export const getOrdersAPI = async (query?: string) => {
+export const getOrdersAPI = async (params?: { status?: string }) => {
+  const query = new URLSearchParams()
+  if (params) {
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== undefined) query.append(key, value.toString())
+    })
+  }
   const urlBackend = `/order?${query}`
   const response = await axios.get<IBackendRes<IModelPaginate<IAdminOrder>>>(urlBackend)
 

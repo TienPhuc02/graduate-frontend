@@ -1,4 +1,4 @@
-import {  useState } from 'react'
+import { useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -23,6 +23,124 @@ const commentSchema = z.object({
 })
 
 type CommentFormValues = z.infer<typeof commentSchema>
+
+const buildCommentTree = (comments: any[]) => {
+  const map: { [key: string]: any } = {}
+  const tree: any[] = []
+
+  comments.forEach((comment) => {
+    map[comment.id] = { ...comment, children: [] }
+  })
+
+  comments.forEach((comment) => {
+    if (comment.parentCommentId) {
+      map[comment.parentCommentId].children.push(map[comment.id])
+    } else {
+      tree.push(map[comment.id])
+    }
+  })
+
+  return tree
+}
+
+const CommentItem = ({
+  comment,
+  level = 0,
+  replyingCommentId,
+  setReplyingCommentId,
+  replyForm,
+  onSubmitReply,
+  createCommentMutation
+}: {
+  comment: any
+  level?: number
+  replyingCommentId: string | null
+  setReplyingCommentId: (id: string | null) => void
+  replyForm: any
+  onSubmitReply: (values: CommentFormValues, parentId: string) => void
+  createCommentMutation: any
+}) => {
+  return (
+    <div
+      key={comment.id}
+      className={`mt-4 border-l-2 pl-4 ${level > 0 ? `ml-${level * 8} border-neutral-500` : 'border-neutral-700'}`}
+    >
+      <div className='flex items-start gap-3'>
+        <Avatar src={comment.user?.profilePicture} alt={comment.user?.firstName} />
+        <div className='flex-1'>
+          <div className='flex items-center gap-2'>
+            <span className='font-semibold'>
+              {comment.user?.firstName} {comment.user?.lastName}
+            </span>
+            <span className='text-sm text-muted-foreground'>
+              {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true, locale: vi })}
+            </span>
+          </div>
+          <p className='mt-1' dangerouslySetInnerHTML={{ __html: comment.text }} />
+          <Button
+            variant='link'
+            className='p-0 h-auto text-sm text-blue-500'
+            onClick={() => setReplyingCommentId(comment.id)}
+          >
+            Trả lời
+          </Button>
+
+          {replyingCommentId === comment.id && (
+            <Form {...replyForm}>
+              <form
+                onSubmit={replyForm.handleSubmit((values: CommentFormValues) => onSubmitReply(values, comment.id))}
+                className='mt-2'
+              >
+                <FormField
+                  control={replyForm.control}
+                  name='content'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          placeholder='Viết câu trả lời...'
+                          {...field}
+                          className='dark:bg-neutral-800 dark:text-white dark:border-gray-700'
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <div className='mt-2 flex gap-2'>
+                  <Button type='submit' disabled={createCommentMutation.isPending}>
+                    Gửi
+                  </Button>
+                  <Button type='button' variant='outline' size='sm' onClick={() => setReplyingCommentId(null)}>
+                    Hủy
+                  </Button>
+                </div>
+              </form>
+            </Form>
+          )}
+        </div>
+      </div>
+
+      {/* Render comment con đệ quy */}
+      {comment.children && comment.children.length > 0 && (
+        <div>
+          {comment.children.map((child: any) => (
+            <CommentItem
+              key={child.id}
+              comment={child}
+              level={level + 1}
+              replyingCommentId={replyingCommentId}
+              setReplyingCommentId={setReplyingCommentId}
+              replyForm={replyForm}
+              onSubmitReply={onSubmitReply}
+              createCommentMutation={createCommentMutation}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
 
 export const CommentCourse = ({ courseId }: CommentSectionProps) => {
   const { user } = useUserStore()
@@ -72,6 +190,9 @@ export const CommentCourse = ({ courseId }: CommentSectionProps) => {
     }
   }
 
+  // Tạo cấu trúc cây từ comments
+  const commentTree = buildCommentTree(comments)
+
   return (
     <div>
       <h2 className='text-2xl font-semibold mb-4 mt-5'>Bình luận</h2>
@@ -101,66 +222,18 @@ export const CommentCourse = ({ courseId }: CommentSectionProps) => {
         </form>
       </Form>
 
-      {/* Kiểm tra nếu có bình luận thì hiển thị danh sách */}
-      {comments.length > 0 ? (
-        comments.map((comment) => (
-          <div key={comment.id} className='mt-4 border-l-2 pl-4'>
-            <div className='flex items-start gap-3'>
-              <Avatar src={comment.user?.profilePicture} alt={comment.user?.firstName} />
-              <div className='flex-1'>
-                <div className='flex items-center gap-2'>
-                  <span className='font-semibold'>
-                    {comment.user?.firstName} {comment.user?.lastName}
-                  </span>
-                  <span className='text-sm text-muted-foreground'>
-                    {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true, locale: vi })}
-                  </span>
-                </div>
-                <p className='mt-1' dangerouslySetInnerHTML={{ __html: comment.text }} />
-                <Button
-                  variant='link'
-                  className='p-0 h-auto text-sm text-blue-500'
-                  onClick={() => setReplyingCommentId(comment.id)}
-                >
-                  Trả lời
-                </Button>
-
-                {replyingCommentId === comment.id && (
-                  <Form {...replyForm}>
-                    <form
-                      onSubmit={replyForm.handleSubmit((values) => onSubmitReply(values, comment.id))}
-                      className='mt-2'
-                    >
-                      <FormField
-                        control={replyForm.control}
-                        name='content'
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormControl>
-                              <Input
-                                placeholder='Viết câu trả lời...'
-                                {...field}
-                                className='dark:bg-neutral-800 dark:text-white dark:border-gray-700'
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <div className='mt-2 flex gap-2'>
-                        <Button type='submit' disabled={createCommentMutation.isPending}>
-                          Gửi
-                        </Button>
-                        <Button type='button' variant='outline' size='sm' onClick={() => setReplyingCommentId(null)}>
-                          Hủy
-                        </Button>
-                      </div>
-                    </form>
-                  </Form>
-                )}
-              </div>
-            </div>
-          </div>
+      {/* Hiển thị danh sách comment theo cấu trúc cây */}
+      {commentTree.length > 0 ? (
+        commentTree.map((comment) => (
+          <CommentItem
+            key={comment.id}
+            comment={comment}
+            replyingCommentId={replyingCommentId}
+            setReplyingCommentId={setReplyingCommentId}
+            replyForm={replyForm}
+            onSubmitReply={onSubmitReply}
+            createCommentMutation={createCommentMutation}
+          />
         ))
       ) : (
         <p>Chưa có bình luận nào. Hãy là người đầu tiên bình luận!</p>

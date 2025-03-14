@@ -13,6 +13,8 @@ const MyCart = () => {
   const queryClient = useQueryClient()
   const { isLoading } = useFetchOrder()
   useFetchUser()
+  const { user } = useUserStore()
+  console.log('🚀 ~ MyCart ~ user:', user)
   const { order, setOrder } = useOrderStore()
   const { setUser } = useUserStore()
   const navigate = useNavigate()
@@ -27,22 +29,27 @@ const MyCart = () => {
       queryClient.invalidateQueries({ queryKey: ['orders'] })
     }
   })
+
   const updateOrderMutation = useMutation({
     mutationFn: (orderItem: string) => updateOrderAPI(orderItem!, { status: 'completed' }),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['orders'] })
       await queryClient.invalidateQueries({ queryKey: ['getMe'] })
-      const updatedOrder = await queryClient.fetchQuery({
-        queryKey: ['orders', order?.id],
+
+      const updatedOrders = await queryClient.fetchQuery({
+        queryKey: ['orders'],
         queryFn: () => getOrdersAPI()
       })
+
+      const pendingOrders = updatedOrders.results.filter((order) => order.status === 'pending')
+
+      setOrder(pendingOrders.length > 0 ? pendingOrders[0] : null)
 
       const updatedUser = await queryClient.fetchQuery({
         queryKey: ['getMe'],
         queryFn: () => getMe()
       })
 
-      setOrder(updatedOrder?.results[0])
       setUser(updatedUser.data)
       navigate('/')
     }
@@ -55,15 +62,17 @@ const MyCart = () => {
       </div>
     )
 
+  const filteredOrderItems = order?.orderItems?.filter(() => order?.status !== 'completed') || []
+
   return (
     <div className='max-w-3xl mx-auto p-6'>
       <h1 className='text-2xl font-semibold mb-4'>🛒 My Cart</h1>
 
       <div className='space-y-4'>
-        {order === null || order?.orderItems.length === 0 ? (
+        {order === null || filteredOrderItems.length === 0 ? (
           <p className='text-center text-gray-500'>Không có đơn hàng nào trong giỏ hàng của bạn.</p>
         ) : (
-          order?.orderItems.map((orderItem) => (
+          filteredOrderItems.map((orderItem) => (
             <Card key={orderItem.id} className='relative'>
               <CardHeader>
                 <p className='text-lg font-medium'>Order #{orderItem.id}</p>
@@ -90,7 +99,8 @@ const MyCart = () => {
           ))
         )}
       </div>
-      {order == null || order?.orderItems.length === 0 ? (
+
+      {order == null || filteredOrderItems.length === 0 ? (
         <div className='mt-6 flex justify-end'>
           <Button onClick={() => navigate('/courses')} className='mt-4 bg-gray-500 text-white'>
             Khám phá khóa học
