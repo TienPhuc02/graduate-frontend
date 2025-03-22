@@ -41,9 +41,9 @@ export default function Hero() {
     <div className='w-full flex flex-col items-center justify-center px-4'>
       <div className='max-w-8xl mx-auto text-center space-y-8 pt-[100px]'>
         <div className='text-4xl md:text-5xl lg:text-6xl font-bold mx-auto'>
-          <div data-aos='zoom-out-up'>Nâng tầm tương lai của bạn với các khóa học được thiết kế để</div>
+          <div>Nâng tầm tương lai của bạn với các khóa học được thiết kế để</div>
           <div className='text-blue-600 relative'>
-            <div data-aos='zoom-out-up'>phù hợp với lựa chọn của bạn</div>
+            <div>phù hợp với lựa chọn của bạn</div>
             <svg
               className='absolute -bottom-2 right-0 w-full h-4 text-blue-400'
               viewBox='0 0 100 20'
@@ -54,7 +54,7 @@ export default function Hero() {
             </svg>
           </div>
         </div>
-        <div className='text-gray-600 max-w-2xl mx-auto text-lg' data-aos='zoom-out-up'>
+        <div className='text-gray-600 max-w-2xl mx-auto text-lg'>
           Chúng tôi kết nối các giảng viên hàng đầu thế giới, nội dung tương tác và cộng đồng hỗ trợ để giúp bạn đạt
           được mục tiêu cá nhân và nghề nghiệp của mình.
         </div>

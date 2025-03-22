@@ -47,7 +47,7 @@ const LearnCourse = () => {
               {/* Hiển thị ContentText */}
               {selectedLesson.contentType.includes('TEXT') && selectedLesson.contentText && (
                 <div
-                  className='prose max-w-none border p-4 rounded-lg shadow-sm'
+                  className='prose dark:prose-invert max-w-none border p-4 rounded-lg shadow-sm'
                   dangerouslySetInnerHTML={{ __html: selectedLesson.contentText }}
                 />
               )}

@@ -16,7 +16,7 @@ export default function CardAnimate({
       transition={{ duration: 0.5 }}
       whileHover={{ scale: 1.05 }}
     >
-      <div data-aos='zoom-out-up'>
+      <div>
         <div className='w-full mx-auto cursor-pointer !h-[150px]'>
           <div className='bg-white dark:bg-gray-900 rounded-lg shadow-md overflow-hidden transition-transform duration-300 ease-in-out h-full group-hover:scale-105'>
             <div className='p-6'>

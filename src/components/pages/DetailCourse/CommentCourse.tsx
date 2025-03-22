@@ -25,16 +25,21 @@ const commentSchema = z.object({
 type CommentFormValues = z.infer<typeof commentSchema>
 
 const buildCommentTree = (comments: any[]) => {
+  const sortedComments = [...comments].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+
   const map: { [key: string]: any } = {}
   const tree: any[] = []
 
-  comments.forEach((comment) => {
+  sortedComments.forEach((comment) => {
     map[comment.id] = { ...comment, children: [] }
   })
 
-  comments.forEach((comment) => {
+  sortedComments.forEach((comment) => {
     if (comment.parentCommentId) {
       map[comment.parentCommentId].children.push(map[comment.id])
+      map[comment.parentCommentId].children.sort(
+        (a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      )
     } else {
       tree.push(map[comment.id])
     }
